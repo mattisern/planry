@@ -20,7 +20,6 @@ app.get('/boards', (req, res) => {
 });
 
 app.get('/boards/:uuid', (req, res) => {
-
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM boards WHERE identifier = \'' + req.params.uuid + '\'', function(err, result) {
       done();
@@ -41,10 +40,6 @@ app.get('/boards/:uuid', (req, res) => {
       }
     });
   });
-
-
-  //TODO: here we should start out by checking if we have a board in the db, otherwise someone is playing with our url and should just receive a 404
-	//res.render('pages/boards', { 'uuid' : req.params.uuid })
 });
 
 

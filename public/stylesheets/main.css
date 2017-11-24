@@ -98,7 +98,7 @@ h3.add-widget {
   text-align: center;
   color: #333;
   background-color: transparent;
-  transition: box-shadow .3s ease-in;
+  transition: box-shadow .2s ease-in;
   outline: 0;
 }
 
