@@ -22,6 +22,18 @@ h2 {
   font-size: 18px;
 }
 
+.navigation {
+  padding-top: 12px;
+}
+
+.navigation a {
+  color: #666;
+}
+
+.navigation li {
+  list-style-type: none;
+}
+
 li {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #222;
