@@ -22,6 +22,18 @@ h2 {
   font-size: 18px;
 }
 
+.navigation {
+  padding-top: 12px;
+}
+
+.navigation a {
+  color: #666;
+}
+
+.navigation li {
+  list-style-type: none;
+}
+
 li {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #222;
@@ -62,16 +74,19 @@ li.finished {
   margin: 40px 0px;
 }
 
-.add-widget-plus {
+h2.add-widget-plus {
   font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
-  color: #999;
   font-size: 44px;
-  padding-bottom: 6px;
+  color: #999;
 }
 
-.add-widget-header {
-  font-family: 'Montserrat-Light', 'Montserrat', sans-serif;
+h3.add-widget {
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #999;
   font-size: 14px;
-  line-height: 24px;
+}
+
+#add-widget a:hover {
+  text-decoration: none;
+  color: #333;
 }
