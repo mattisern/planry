@@ -90,3 +90,18 @@ h3.add-widget {
   text-decoration: none;
   color: #333;
 }
+
+.editable-header {
+  border: none;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  font-size: 26px;
+  text-align: center;
+  color: #333;
+  background-color: transparent;
+  transition: box-shadow .3s ease-in;
+  outline: 0;
+}
+
+.editable-header:hover, .editable-header:focus {
+  box-shadow: 0 2px 0 #4ab9d6;
+}
