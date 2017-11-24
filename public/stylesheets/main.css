@@ -1,27 +1,77 @@
-.jumbotron {
-  background: #532F8C;
-  color: white;
-  padding-bottom: 80px; }
-  .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
-    .jumbotron .btn-primary:hover {
-      background: #7646c1; }
-  .jumbotron p {
-    color: #d9ccee;
-    max-width: 75%;
-    margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
-  .jumbotron .lang-logo {
-    display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
+body {
+  background-color: #fbfbf9;
+}
 
+p {
+  font-family: 'Montserrat-Light', 'Montserrat', sans-serif;
+  color: #222;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+h1, h2 {
+  font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+li {
+  font-family: 'Montserrat-Light', 'Montserrat', sans-serif;
+  color: #222;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+li.finished {
+  color: #ddd;
+  text-decoration: line-through;
+}
+
+
+#project-name {
+  margin-top: 50px;
+}
+
+#widgets {
+  margin-top: 60px;
+}
+
+.widget-pad {
+  padding: 20px;
+}
+
+.widget {
+  background-color: #fff;
+  padding: 60px 30px;
+}
+
+.widget-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#add-widget {
+  text-align: center;
+  margin: 40px 0px;
+}
+
+.add-widget-plus {
+  font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+  color: #999;
+  font-size: 44px;
+  padding-bottom: 6px;
+}
+
+.add-widget-header {
+  font-family: 'Montserrat-Light', 'Montserrat', sans-serif;
+  color: #999;
+  font-size: 14px;
+  line-height: 24px;
+}

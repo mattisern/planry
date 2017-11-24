@@ -8,15 +8,71 @@
 
   <% include ../partials/nav.ejs %>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/lang-logo.png">
-    </a>
-    <h1>Your board uuid is: <%= uuid %> </h1>
-    <p>Later on you will be able to share it through: <a href="#">https://wwwtogheterr.com/boards/<%= uuid %></a></p>
+<div id="project-name">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h1>Project name</h1>
+        <p class="uuid">Your board uuid is: <%= uuid %> </p>
+      </div>
+    </div>
   </div>
 </div>
+
+<div id="widgets">
+  <div class="container">
+  	<div class="row">
+  		<div class="col-lg-6 widget-pad">
+        <div class="widget">
+          <div class="widget-header">
+            <h2>Widget 1.</h2>
+          </div>
+          <p>Säg varje morgon när du vaknar upp: idag kommer jag träffa de som är svekfulla, lömska, aggressiva, egoistiska. Allt detta har drabbat dem genom deras okunskap om vad som är gott och vad som är ont.</p>
+          <p>Men jag har sett vad godhet är, och vad som gör ondskan fel; och jag har insett att syndarens själ är lik min egen – inte ett släktskap genom blod eller säd, utan ett delande av samma medvetande, samma fragment av det heliga. Därför kan jag inte skadas av någon av dem, då ingen kommer infektera mig med sina brister. Inte heller kan jag vara förbannad på mina besläktade eller hata honom.  
+        </div>
+      </div>
+      
+      <div class="col-lg-6 widget-pad">
+        <div class="widget">
+          <div class="widget-header">
+            <h2>Widget 2.</h2>
+          </div>
+          <p>Vi skapades för att samarbeta, som fötter, som händer, som ögonlock, som tandraderna uppe och nere. </p>
+          <p>Att arbeta i motsättning till varandra är mot naturen: och ilska, likväl som frånstötande, är motsättning.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 widget-pad">
+        <div class="widget">
+          <div class="widget-header">
+            <h2>Widget 3.</h2>
+          </div>
+          <ul>
+            <li>Shower</li>
+            <li>Stretch</li>
+            <li class="finished">Walk</li>
+            <li class="finished">Talk</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="add-widget">
+  <div class="container">
+  	<div class="row">
+  		<div class="col-sm-12">
+        <a href="#">
+        <p class="add-widget-plus">+</p>
+        <p class="add-widget-header">Add widget</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>
