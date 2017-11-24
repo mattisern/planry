@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/lang-logo.png">
+    </a>
+    <h1>Your board uuid is: <%= uuid %> </h1>
+    <p>Later on you will be able to share it through: <a href="#">https://wwwtogheterr.com/boards/<%= uuid %></a></p>
+  </div>
+</div>
+
+</body>
+</html>
