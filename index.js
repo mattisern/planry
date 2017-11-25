@@ -3,26 +3,18 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const uuid = require('uuid/v4');
 const pg = require('pg');
+const http = require('http');
+const url = require('url');
 
 let app = express();
+let server = http.Server(app);
+let io = require('socket.io').listen(server);
+
 
 //config/setup
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-
-//db
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM test_table', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('pages/db', {results: result.rows} ); }
-    });
-  });
-});
 
 //routes TODO:extract
 app.get('/', (req, res) => res.redirect('boards'))
@@ -33,7 +25,6 @@ app.get('/boards', (req, res) => {
 });
 
 app.get('/boards/:uuid', (req, res) => {
-
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM boards WHERE identifier = \'' + req.params.uuid + '\'', function(err, result) {
       done();
@@ -54,12 +45,35 @@ app.get('/boards/:uuid', (req, res) => {
       }
     });
   });
-
-
-  //TODO: here we should start out by checking if we have a board in the db, otherwise someone is playing with our url and should just receive a 404
-	//res.render('pages/boards', { 'uuid' : req.params.uuid })
 });
 
-
 //start our listener
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+//event handling with socket io
+io.on('connection', function (socket) {
+
+  let room = socket.handshake.query.room;
+
+  socket.join(room);
+
+  socket.on('titleUpdated', function (data) {
+
+    if (data.board.name !== data.title) {
+
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
+        client.query("UPDATE boards set name = '" + data.title + "' WHERE identifier = '" + data.board.identifier + "' returning *", function(err, result) {
+          done();
+          if (err) {
+            console.error(err);
+          } else {
+            socket.broadcast.to(room).emit('titleUpdated', result.rows[0]);
+          }
+        });
+      });
+
+    }
+  });
+
+});
