@@ -3,8 +3,13 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const uuid = require('uuid/v4');
 const pg = require('pg');
+const http = require('http');
+const url = require('url');
 
 let app = express();
+let server = http.Server(app);
+let io = require('socket.io').listen(server);
+
 
 //config/setup
 app.use(express.static(path.join(__dirname, 'public')))
@@ -42,6 +47,33 @@ app.get('/boards/:uuid', (req, res) => {
   });
 });
 
-
 //start our listener
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+//event handling with socket io
+io.on('connection', function (socket) {
+
+  let room = socket.handshake.query.room;
+
+  socket.join(room);
+
+  socket.on('titleUpdated', function (data) {
+
+    if (data.board.name !== data.title) {
+
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
+        client.query("UPDATE boards set name = '" + data.title + "' WHERE identifier = '" + data.board.identifier + "' returning *", function(err, result) {
+          done();
+          if (err) {
+            console.error(err);
+          } else {
+            socket.broadcast.to(room).emit('titleUpdated', result.rows[0]);
+          }
+        });
+      });
+
+    }
+  });
+
+});
