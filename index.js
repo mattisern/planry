@@ -26,12 +26,30 @@ app.get('/boards', (req, res) => {
 
 app.get('/boards/:uuid', (req, res) => {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
     client.query('SELECT * FROM boards WHERE identifier = \'' + req.params.uuid + '\'', function(err, result) {
       done();
+
       if (err) {
         console.error(err); res.send("Error " + err);
       } else if (result.rows.length > 0) {
-        res.render('pages/boards', {board: result.rows[0]});
+        //we have a board to retrieve, get it
+        let board = result.rows[0];
+
+        //get associatied widgets
+        let query = 'SELECT * FROM widgets where board_id = ' + board.id;
+
+        client.query(query, function(err, result) {
+          done();
+
+          if (err) {
+            console.error(err); res.send("Error " + err);
+          } else if (result.rows.length > 0 ) {
+            board.widgets = result.rows;
+          }
+          res.render('pages/boards', {board: board});
+        })
+
       } else {
         let query = 'INSERT INTO boards (identifier) values (\'{' + req.params.uuid + '}\') returning *';
         client.query(query, function(err, result) {
@@ -43,7 +61,9 @@ app.get('/boards/:uuid', (req, res) => {
           }
         });
       }
+
     });
+
   });
 });
 
