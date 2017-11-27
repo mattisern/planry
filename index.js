@@ -122,8 +122,8 @@ io.on('connection', function (socket) {
                       console.log(err);
                   } else {
                     let test = ejs.render(data, { widget: widget });
+                    socket.broadcast.to(room).emit('addWidget', {widget: widget, html: test});
                     socket.emit('addWidget', {widget: widget, html: test});
-
                   }
                 });
 
