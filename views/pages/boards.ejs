@@ -17,7 +17,7 @@
   <div class="container text-center">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <input id="title" class="editable-header" type="text" value="<%= board['name'] %>"></input>
+        <input id="title" class="editable-header h1" type="text" value="<%= board['name'] %>"></input>
         <p class="uuid">Your board uuid is: <%= board['identifier'] %> </p>
       </div>
     </div>
@@ -26,47 +26,25 @@
 
 <div id="widgets">
   <div class="container">
-  	<div class="row">
-  		<div class="col-md-6 col-xl-4 widget-pad">
-        <div class="widget">
-          <div class="widget-header">
-            <h2>Widget 1.</h2>
-          </div>
-          <p>Säg varje morgon när du vaknar upp: idag kommer jag träffa de som är svekfulla, lömska, aggressiva, egoistiska. Allt detta har drabbat dem genom deras okunskap om vad som är gott och vad som är ont.</p>
-          <p>Men jag har sett vad godhet är, och vad som gör ondskan fel; och jag har insett att syndarens själ är lik min egen – inte ett släktskap genom blod eller säd, utan ett delande av samma medvetande, samma fragment av det heliga. Därför kan jag inte skadas av någon av dem, då ingen kommer infektera mig med sina brister. Inte heller kan jag vara förbannad på mina besläktade eller hata honom.
-        </div>
-      </div>
+    <div class="row" id="widgets-container">
+      <!-- start widget loop -->
+      <%
+        let widgets = board.widgets;
 
+        if (widgets && widgets.length > 0 ) {
+          for(var i=0; i< widgets.length; i++) {
+            let widget = widgets[i];
 
-      <div class="col-md-6 col-xl-4 widget-pad">
-        <div class="widget">
-          <div class="widget-header">
-            <h2>Widget 2.</h2>
-          </div>
-          <p>Vi skapades för att samarbeta, som fötter, som händer, som ögonlock, som tandraderna uppe och nere. </p>
-          <p>Att arbeta i motsättning till varandra är mot naturen: och ilska, likväl som frånstötande, är motsättning.</p>
-        </div>
-      </div>
-
-
-      <div class="col-md-6 col-xl-4 widget-pad">
-        <div class="widget">
-          <div class="widget-header">
-            <h2>Widget 3.</h2>
-          </div>
-          <ul>
-            <li>Shower</li>
-            <li>Stretch</li>
-            <li class="finished">Walk</li>
-            <li class="finished">Talk</li>
-          </ul>
-        </div>
-      </div>
-
+            if (widget.type === 1) { %>
+              <% include ../partials/text-widget.ejs %>
+            <%}
+          }
+        }
+      %>
+     <!-- end loop -->
     </div>
   </div>
 </div>
-
 
 <div id="add-widget">
   <div class="container">
@@ -79,9 +57,9 @@
               Add widget
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Text</a><br />
-              <a class="dropdown-item" href="#">Todo</a><br />
-              <a class="dropdown-item" href="#">Image</a>
+              <a class="dropdown-item" href="javascript:addWidget('text')">Text</a><br />
+              <a class="dropdown-item" href="javascript:addWidget('checklist')">Todo</a><br />
+              <a class="dropdown-item" href="javascript:addWidget('image')">Image</a>
             </div>
           </div>
         </div>

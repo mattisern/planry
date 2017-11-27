@@ -69,6 +69,18 @@ li.finished {
   margin-bottom: 60px;
 }
 
+.text-widget > textarea {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  resize: none;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  color: #222;
+  font-size: 14px;
+  line-height: 24px;
+}
+
 #add-widget {
   text-align: center;
   margin: 40px 0px;
@@ -103,13 +115,22 @@ a.add-widget {
 .editable-header {
   border: none;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  font-size: 26px;
   text-align: center;
-  color: #333;
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
+  color: #333;
+  padding: 0;
 }
+
+.editable-header.h1 {
+  font-size: 26px;
+}
+
+.editable-header.h2 {
+  font-size: 18px;
+}
+
 
 .editable-header:hover, .editable-header:focus {
   box-shadow: 0 2px 0 #4ab9d6;
