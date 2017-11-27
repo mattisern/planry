@@ -1,0 +1,22 @@
+<div class="col-md-6 col-xl-4 widget-pad" id="widget-<%= widget.id %>">
+  <div class="widget">
+    <div class="widget-header">
+      <div class="widget-header">
+        <input type="text"
+        class="editable-header h2"
+        name="name"
+        value="<%= widget.state.name %>"
+        onchange="javascript:updateWidget(<%= widget.id %>, this)" />
+      </div>
+    </div>
+
+    <% include checklist-widget-tasks.ejs %>
+
+    <div class="centered-content">
+      <a class="btn btn-secondary add-task" href="javascript:addWidgetTask(<%= widget.id%>)" role="button">
+        +<br/>
+        Add task
+      </a>
+    </div>
+</div>
+</div>

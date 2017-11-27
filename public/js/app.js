@@ -18,6 +18,10 @@ socket.on('updateWidget', function(data) {
     $("#widget-"+data.widgetId).find('[name="' + data.updateField +'"]').val(state[data.updateField]);
 });
 
+socket.on('addWidgetTask', function(data) {
+    $('#widget-'+data.widget.id).find('#tasks').html(data.html);
+});
+
 socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
@@ -44,9 +48,18 @@ function addWidget(type) {
 };
 
 function updateWidget(widgetId, el) {
-    socket.emit('updateWidget', { widgetId: widgetId, updateField: el.name, value: el.value });
+    socket.emit('updateTextWidget', { widgetId: widgetId, updateField: el.name, value: el.value });
 }
 
 function deleteWidget(widgetId) {
     socket.emit('deleteWidget', {widgetId: widgetId});
+}
+
+function addWidgetTask(widgetId) {
+    socket.emit('addWidgetTask', {widgetId: widgetId});
+}
+
+function updateTasks(widgetId, el) {
+    console.log(widgetId, el);
+    socket.emit('updateTask', {widgetId: widgetId});
 }

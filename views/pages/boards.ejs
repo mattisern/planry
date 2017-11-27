@@ -37,6 +37,8 @@
 
             if (widget.type === 1) { %>
               <% include ../partials/text-widget.ejs %>
+            <%} else if (widget.type === 2) { %>
+              <% include ../partials/checklist-widget.ejs %>
             <%}
           }
         }

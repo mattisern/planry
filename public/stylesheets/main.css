@@ -112,6 +112,14 @@ a.add-widget {
   color: #000;
 }
 
+.editable-label {
+  border: none;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  background-color: transparent;
+  transition: box-shadow .2s ease-in;
+  outline: 0;
+}
+
 .editable-header {
   border: none;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
@@ -131,7 +139,17 @@ a.add-widget {
   font-size: 18px;
 }
 
+ul {
+  list-style: none;
+}
 
-.editable-header:hover, .editable-header:focus {
+.centered-content {
+  text-align: center;
+}
+
+.editable-header:hover,
+.editable-header:focus,
+.editable-label:hover,
+.editable-label:focus {
   box-shadow: 0 2px 0 #4ab9d6;
 }

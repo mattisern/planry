@@ -116,24 +116,48 @@ io.on('connection', function (socket) {
               let widget = result.rows[0];
               if (widget) {
 
-                fs.readFile('views/partials/text-widget.ejs','utf-8', function(err, data) {
+                ejs.renderFile('views/partials/text-widget.ejs', {widget: widget}, {}, (err, str) => {
                   if (err) {
-                      console.log(err);
+                    console.log(err);
                   } else {
-                    let test = ejs.render(data, { widget: widget });
-                    socket.broadcast.to(room).emit('addWidget', {widget: widget, html: test});
-                    socket.emit('addWidget', {widget: widget, html: test});
+                    let template = str;
+                    socket.broadcast.to(room).emit('addWidget', {widget: widget, html: template});
+                    socket.emit('addWidget', {widget: widget, html: template});
                   }
                 });
-
-                // console.log(ejs.render({widget : widget}, {url: '/views/partials/text-widget.ejs'}));
-                // html = ejs.render {url: '/views/partials/text-widget.ejs'}).render(data);
               };
             }
           });
         });
-      } //else if (data.type === 'checklist') {}
-      else {
+      } else if (data.type === 'checklist') {
+        let type = 2;
+        let defaultState = JSON.stringify({name: "new todo widget", tasks: [{ id: uuid(), description: 'New Task', completed: false}]});
+
+        pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+          let query = `INSERT INTO widgets (board_id, type, state) values (${board_id}, ${type}, '${defaultState}') returning *` ;
+
+          client.query(query, function(err, result) {
+            done();
+            if (err) {
+              console.error(err);
+            } else {
+              let widget = result.rows[0];
+              if (widget) {
+
+                ejs.renderFile('views/partials/checklist-widget.ejs', {widget: widget}, {}, (err, str) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    let template = str;
+                    socket.broadcast.to(room).emit('addWidget', {widget: widget, html: template});
+                    socket.emit('addWidget', {widget: widget, html: template});
+                  }
+                });
+              };
+            }
+          });
+        });
+      } else {
         socket.emit('error-event', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"} );
       }
   });
@@ -170,6 +194,52 @@ io.on('connection', function (socket) {
           });
         });
   });
+
+  socket.on('addWidgetTask', (data) => {
+    let defaultTask = { description: 'New Task', completed: false};
+
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
+      let query = `SELECT state FROM widgets WHERE id = ${data.widgetId}`;
+      client.query(query, (err, result) => {
+        done();
+
+        if (err) {
+          console.log(err);
+        } else {
+          let state = result.rows[0]['state'];
+          let tasks = state.tasks;
+          tasks.push(defaultTask);
+
+          let query = `UPDATE widgets SET state = '${ JSON.stringify(state) }' WHERE id = ${data.widgetId} RETURNING *`;
+          client.query(query, (err, result) => {
+            done();
+
+            if (err) {
+              console.log(err);
+            } else {
+              let widget = result.rows[0];
+
+              if (widget) {
+                fs.readFile('views/partials/checklist-widget-tasks.ejs','utf-8', function(err, data) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                    let template = ejs.render(data, { widget: widget });
+                    socket.broadcast.to(room).emit('addWidgetTask', {widget: widget, html: template});
+                    socket.emit('addWidgetTask', {widget: widget, html: template});
+                  }
+                });
+              };
+            }
+          });
+        }
+      });
+
+    });
+  });
+
+
 
 });
 
