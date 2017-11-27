@@ -27,7 +27,19 @@
 <div id="widgets">
   <div class="container">
   	<div class="row">
-  		<div class="col-md-6 col-xl-4 widget-pad">
+      <%
+        widget = {
+          id : 1,
+          name : 'stefans widget',
+          state : {
+            text : 'stefan testar'
+          }
+        };
+      %>
+
+  		<% include ../partials/text-widget.ejs %>
+
+      <div class="col-md-6 col-xl-4 widget-pad">
         <div class="widget">
           <div class="widget-header">
             <h2>Widget 1.</h2>
@@ -36,7 +48,6 @@
           <p>Men jag har sett vad godhet är, och vad som gör ondskan fel; och jag har insett att syndarens själ är lik min egen – inte ett släktskap genom blod eller säd, utan ett delande av samma medvetande, samma fragment av det heliga. Därför kan jag inte skadas av någon av dem, då ingen kommer infektera mig med sina brister. Inte heller kan jag vara förbannad på mina besläktade eller hata honom.
         </div>
       </div>
-
 
       <div class="col-md-6 col-xl-4 widget-pad">
         <div class="widget">

@@ -69,6 +69,18 @@ li.finished {
   margin-bottom: 60px;
 }
 
+.text-widget > textarea {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  resize: none;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  color: #222;
+  font-size: 14px;
+  line-height: 24px;
+}
+
 #add-widget {
   text-align: center;
   margin: 40px 0px;

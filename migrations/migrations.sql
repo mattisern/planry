@@ -6,5 +6,6 @@ create table boards (
 
 create table widgets (
     id SERIAL,
+    type INTEGER,
     state JSON
 );
