@@ -2,7 +2,7 @@ body {
   background-color: #fbfbf9;
 }
 
-p {
+p, a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #222;
   font-size: 14px;
@@ -74,21 +74,30 @@ li.finished {
   margin: 40px 0px;
 }
 
-h2.add-widget-plus {
+a.add-widget {
   font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
-  font-size: 44px;
+  font-size: 24px;
   color: #999;
-}
-
-h3.add-widget {
-  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  color: #999;
-  font-size: 14px;
 }
 
 #add-widget a:hover {
   text-decoration: none;
+  color: #666;
+}
+
+.dropdown-menu {
+  left: 43%;
+  top: -20%;
+  background-color: #fbfbf9;
+  padding: 20px;
+  border: 0;
+  box-shadow: 0px;
   color: #333;
+  margin-bottom: 20px;
+}
+
+.dropdown-menu a:hover {
+  color: #000;
 }
 
 .editable-header {

@@ -67,14 +67,24 @@
   </div>
 </div>
 
+
 <div id="add-widget">
   <div class="container">
   	<div class="row">
-  		<div class="col-sm-12 add-widget">
-        <a href="#">
-          <h2 class="add-widget-plus">+</h2>
-          <h3 class="add-widget">Add widget</h3>
-        </a>
+      <div class="col-sm-12 add-widget">
+        <div class="dropdown">
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle add-widget" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              +<br/>
+              Add widget
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">Text</a><br />
+              <a class="dropdown-item" href="#">Todo</a><br />
+              <a class="dropdown-item" href="#">Image</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
