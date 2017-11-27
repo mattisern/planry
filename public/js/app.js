@@ -10,7 +10,12 @@ socket.on('addWidget', function (data) {
     window.GLOBALS.board.widgets = window.GLOBALS.board.widgets || [];
     let widgets = window.GLOBALS.board.widgets;
     widgets.push(data.widget);
-    $('#widgets').append(data.html);
+    $('#widgets-container').append(data.html);
+});
+
+socket.on('updateWidget', function(data) {
+    let state = data.newState;
+    $("#widget-"+data.widgetId).find('[name="' + data.updateField +'"]').val(state[data.updateField]);
 });
 
 $('#title').on('change', function(e) {
@@ -33,6 +38,10 @@ $(document).one('focus.autoExpand', 'textarea.autoExpand', function(){
 function addWidget(type) {
     socket.emit('addWidget', {boardId: window.GLOBALS.board.id, type: type});
 };
+
+function updateWidget(widgetId, el) {
+    socket.emit('updateWidget', { widgetId: widgetId, updateField: el.name, value: el.value });
+}
 
 function deleteWidget(widgetId) {
     socket.emit('deleteWidget', {widgetId: widgetId});

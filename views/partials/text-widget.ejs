@@ -1,8 +1,17 @@
-<div class="col-md-6 col-xl-4 widget-pad">
-    <div class="widget text-widget">
+<div class="col-md-6 col-xl-4 widget-pad" id="widget-<%= widget.id %>">
+    <div class="widget text-widget" >
         <div class="widget-header">
-            <h2> <%= widget.name %> </h2>
+            <input type="text"
+                class="editable-header h2"
+                name="name"
+                value="<%= widget.state.name %>"
+                onchange="javascript:updateWidget(<%= widget.id %>, this)" />
         </div>
-        <textarea rows='10' data-min-rows='10' class="autoExpand"><%= widget.state.text %></textarea>
+        <textarea
+            rows='10'
+            data-min-rows='10'
+            class="autoExpand"
+            name="text"
+            onchange="javascript:updateWidget(<%= widget.id %>, this)"><%= widget.state.text %></textarea>
     </div>
 </div>

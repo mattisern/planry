@@ -80,7 +80,7 @@ io.on('connection', function (socket) {
 
   socket.join(room);
 
-  socket.on('titleUpdated', function (data) {
+  socket.on('titleUpdated', (data) => {
 
     if (data.board.name !== data.title) {
 
@@ -98,12 +98,12 @@ io.on('connection', function (socket) {
     }
   });
 
-  socket.on('addWidget', function (data) {
+  socket.on('addWidget', (data) => {
       let board_id = data.boardId;
 
       if (data.type === 'text') {
         let type = 1;
-        let defaultState = JSON.stringify({text: "start typing here"});
+        let defaultState = JSON.stringify({name: "new text widget", text: "start typing here"});
 
         pg.connect(process.env.DATABASE_URL, function(err, client, done) {
           let query = `INSERT INTO widgets (board_id, type, state) values (${board_id}, ${type}, '${defaultState}') returning *` ;
@@ -137,6 +137,39 @@ io.on('connection', function (socket) {
       else {
         socket.emit('error', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"});
       }
+  });
+
+  socket.on('updateWidget', (data) => {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+          let updateField = data.updateField;
+          let widgetId = data.widgetId;
+          let value = data.value;
+
+          let query = `SELECT state FROM widgets WHERE id = ${widgetId}` ;
+
+          client.query(query, function(err, result) {
+            done();
+            if (err) {
+              console.log(err);
+            } else {
+              let state = result.rows[0]['state'];
+              if (state[updateField] !== value) {
+                state[updateField] = value;
+                query = `UPDATE WIDGETS SET state = '${JSON.stringify(state)}' WHERE id = ${widgetId} RETURNING state`;
+
+                client.query(query, (err,result) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    let newState = result.rows[0]['state'];
+                    socket.broadcast.to(room).emit('updateWidget', {widgetId: widgetId, updateField: updateField, newState: newState });
+                  }
+                });
+
+              };
+            }
+          });
+        });
   });
 
 });

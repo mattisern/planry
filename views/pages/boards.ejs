@@ -17,14 +17,16 @@
   <div class="container text-center">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <input id="title" class="editable-header" type="text" value="<%= board['name'] %>"></input>
+        <input id="title" class="editable-header h1" type="text" value="<%= board['name'] %>"></input>
         <p class="uuid">Your board uuid is: <%= board['identifier'] %> </p>
       </div>
     </div>
   </div>
 </div>
 
-<div id="widgets" class="container">
+<div id="widgets">
+  <div class="container">
+    <div class="row" id="widgets-container">
       <!-- start widget loop -->
       <%
         let widgets = board.widgets;
@@ -40,6 +42,8 @@
         }
       %>
      <!-- end loop -->
+    </div>
+  </div>
 </div>
 
 <div id="add-widget">
