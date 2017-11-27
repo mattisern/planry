@@ -196,7 +196,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('addWidgetTask', (data) => {
-    let defaultTask = { description: 'New Task', completed: false};
+    let defaultTask = { id: uuid(), description: 'New Task', completed: false};
 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 
@@ -239,7 +239,80 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('updateTask', (data) => {
+    let value = data.value;
+    let widgetId = data.widgetId;
+    let taskId = data.taskId;
+    let updateField = data.updateField;
 
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+
+      let query = `SELECT state FROM widgets WHERE id = ${widgetId}`;
+
+      client.query(query, (err, result) => {
+        done();
+
+        if (err) {
+          console.log(err);
+        } else {
+          let state = result.rows[0]['state'];
+          let tasks = state.tasks;
+          let task = tasks.find( (task) => {
+            return task.id === taskId;
+          });
+
+          task[updateField] = value; //state is updated with new values
+
+          query = `UPDATE WIDGETS SET state = '${JSON.stringify(state)}' WHERE id = ${widgetId}`
+          client.query(query, (err, result) => {
+            done();
+
+            if (err) {
+              console.log(err);
+            } else {
+              socket.broadcast.to(room).emit('updateTask', {widgetId: widgetId, task: task, updateField: updateField });
+            }
+          });
+        }
+      });
+
+
+    });
+  });
+
+  socket.on('deleteTask', (data) => {
+    pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+      let query = `SELECT state FROM widgets WHERE id = ${data.widgetId}`;
+
+      client.query(query, (err, result) => {
+        done();
+        if (err) {
+          console.log(err);
+        } else {
+          let state = result.rows[0].state;
+          let tasks = state.tasks;
+
+          tasks = tasks.filter(task => {
+            return task.id !== data.taskId;
+          });
+
+          state.tasks = tasks;
+
+          query = `UPDATE widgets SET state = '${JSON.stringify(state)}' WHERE id = ${data.widgetId}`;
+          client.query(query, (err, result) => {
+            done();
+            if (err) {
+              console.log(err);
+            } else {
+              socket.broadcast.to(room).emit('deleteTask', {taskId : data.taskId});
+              socket.emit('deleteTask', {taskId : data.taskId});
+            }
+          });
+        }
+      });
+
+    });
+  });
 
 });
 

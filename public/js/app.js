@@ -22,6 +22,24 @@ socket.on('addWidgetTask', function(data) {
     $('#widget-'+data.widget.id).find('#tasks').replaceWith(data.html);
 });
 
+
+socket.on('updateTask', function(data) {
+    let fieldToUpdate = $('#'+data.task.id).find('[name="' + data.updateField +'"]');
+    if (data.updateField !== 'completed') {
+        fieldToUpdate.val(data.task[data.updateField]);
+    } else {
+        if (data.task.completed) {
+            fieldToUpdate.attr('checked', true);
+        } else {
+            fieldToUpdate.attr('checked', false);
+        }
+    }
+});
+
+socket.on('deleteTask', function(data){
+    $('#'+data.taskId).remove();
+});
+
 socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
@@ -48,18 +66,26 @@ function addWidget(type) {
 };
 
 function updateWidget(widgetId, el) {
-    socket.emit('updateTextWidget', { widgetId: widgetId, updateField: el.name, value: el.value });
+    socket.emit('updateWidget', { widgetId: widgetId, updateField: el.name, value: el.value });
 }
 
 function deleteWidget(widgetId) {
-    socket.emit('deleteWidget', {widgetId: widgetId});
+    socket.emit('deleteWidget', {widgetId: widgetId}); //not implemented yet
 }
 
 function addWidgetTask(widgetId) {
     socket.emit('addWidgetTask', {widgetId: widgetId});
 }
 
-function updateTasks(widgetId, el) {
-    console.log(widgetId, el);
-    socket.emit('updateTask', {widgetId: widgetId});
+function updateTask(widgetId, el) {
+    let taskId = $(el).parent('li').attr('id');
+    socket.emit('updateTask', {
+        widgetId: widgetId,
+        taskId: taskId,
+        updateField: el.name,
+        value: el.name === 'completed' ? el.checked: el.value });
+}
+
+function deleteTask(widgetId, taskId) {
+    socket.emit('deleteTask', {widgetId: widgetId, taskId: taskId});
 }

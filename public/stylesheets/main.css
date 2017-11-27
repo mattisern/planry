@@ -143,6 +143,10 @@ ul {
   list-style: none;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .centered-content {
   text-align: center;
 }

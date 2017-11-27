@@ -1,20 +1,22 @@
-<ul id="tasks">
+<ul id="tasks" class="list-group">
   <% for (var i = 0; i < widget.state.tasks.length; i++ ) {
     index = i;
     task = widget.state.tasks[index];
     %>
-    <li>
+    <li id="<%= task.id %>" class="list-group-item d-flex justify-content-between align-items-center">
       <input
       type="checkbox"
-      name="task-<%= index %>-completed"
-      onchange="javascript:updateTasks(<%= widget.id %>, this)"
+      name="completed"
+      onchange="javascript:updateTask(<%= widget.id %>, this)"
       <%= task.completed ? "checked" : "" %>>
         <input  type="text"
         class="editable-label"
-        name="task-<%= index %>-description"
+        name="description"
         value="<%= task.description %>"
-        onchange="javascript:updateTasks(<%= widget.id %>, this)" />
+        onchange="javascript:updateTask(<%= widget.id %>, this)" />
+
       </input>
+      <span class="badge badge-warning clickable" onclick="javascript:deleteTask(<%= widget.id %>, '<%=task.id%>')">x</span>
     </li>
   <% }%>
 </ul>
