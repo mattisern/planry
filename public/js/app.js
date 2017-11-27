@@ -19,7 +19,7 @@ socket.on('updateWidget', function(data) {
 });
 
 socket.on('addWidgetTask', function(data) {
-    $('#widget-'+data.widget.id).find('#tasks').html(data.html);
+    $('#widget-'+data.widget.id).find('#tasks').replaceWith(data.html);
 });
 
 socket.on('error-event', function (data) {
