@@ -1,32 +1,39 @@
-(function(){
-    'use strict'
+'use strict'
 
-    var socket = io.connect('', {query: 'room='+window.GLOBALS.board.identifier});
+let socket = io.connect('', {query: 'room='+window.GLOBALS.board.identifier});
 
-    socket.on('titleUpdated', function (data) {
-        $('#title').val(data.name);
-    });
+socket.on('titleUpdated', function (data) {
+    $('#title').val(data.name);
+});
 
-    $('#title').on('change', function(e) {
-        socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
-    });
+socket.on('addWidget', function (data) {
+    window.GLOBALS.board.widgets = window.GLOBALS.board.widgets || [];
+    let widgets = window.GLOBALS.board.widgets;
+    widgets.push(data.widget);
+    $('#widgets').append(data.html);
+});
 
+$('#title').on('change', function(e) {
+    socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
+});
 
+$(document).one('focus.autoExpand', 'textarea.autoExpand', function(){
+    let savedValue = this.value;
+    this.value = '';
+    this.baseScrollHeight = this.scrollHeight;
+    this.value = savedValue;
+})
+.on('input.autoExpand', 'textarea.autoExpand', function(){
+    let minRows = this.getAttribute('data-min-rows')|0, rows;
+    this.rows = minRows;
+    rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
+    this.rows = minRows + rows;
+});
 
-    $(document)
-    .one('focus.autoExpand', 'textarea.autoExpand', function(){
-        var savedValue = this.value;
-        this.value = '';
-        this.baseScrollHeight = this.scrollHeight;
-        this.value = savedValue;
-    })
-    .on('input.autoExpand', 'textarea.autoExpand', function(){
-        var minRows = this.getAttribute('data-min-rows')|0, rows;
-        this.rows = minRows;
-        rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
-        this.rows = minRows + rows;
-    });
+function addWidget(type) {
+    socket.emit('addWidget', {boardId: window.GLOBALS.board.id, type: type});
+};
 
-
-
-})();
+function deleteWidget(widgetId) {
+    socket.emit('deleteWidget', {widgetId: widgetId});
+}

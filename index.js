@@ -5,6 +5,8 @@ const uuid = require('uuid/v4');
 const pg = require('pg');
 const http = require('http');
 const url = require('url');
+const ejs = require('ejs');
+const fs = require('fs');
 
 let app = express();
 let server = http.Server(app);
@@ -67,6 +69,7 @@ app.get('/boards/:uuid', (req, res) => {
   });
 });
 
+
 //start our listener
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
@@ -92,8 +95,52 @@ io.on('connection', function (socket) {
           }
         });
       });
-
     }
   });
 
+  socket.on('addWidget', function (data) {
+      let board_id = data.boardId;
+
+      if (data.type === 'text') {
+        let type = 1;
+        let defaultState = JSON.stringify({text: "start typing here"});
+
+        pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+          let query = `INSERT INTO widgets (board_id, type, state) values (${board_id}, ${type}, '${defaultState}') returning *` ;
+
+          client.query(query, function(err, result) {
+            done();
+            if (err) {
+              console.error(err);
+              return false;
+            } else {
+              let widget = result.rows[0];
+              if (widget) {
+
+                fs.readFile('views/partials/text-widget.ejs','utf-8', function(err, data) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                    let test = ejs.render(data, { widget: widget });
+                    socket.emit('addWidget', {widget: widget, html: test});
+
+                  }
+                });
+
+                // console.log(ejs.render({widget : widget}, {url: '/views/partials/text-widget.ejs'}));
+                // html = ejs.render {url: '/views/partials/text-widget.ejs'}).render(data);
+              };
+            }
+          });
+        });
+      } //else if (data.type === 'checklist') {}
+      else {
+        socket.emit('error', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"});
+      }
+  });
+
 });
+
+
+
+

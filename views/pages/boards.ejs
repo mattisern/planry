@@ -24,10 +24,7 @@
   </div>
 </div>
 
-<div id="widgets">
-  <div class="container">
-  	<div class="row">
-
+<div id="widgets" class="container">
       <!-- start widget loop -->
       <%
         let widgets = board.widgets;
@@ -39,31 +36,11 @@
             if (widget.type === 1) { %>
               <% include ../partials/text-widget.ejs %>
             <%}
-
           }
         }
       %>
-
      <!-- end loop -->
-
-      <div class="col-md-6 col-xl-4 widget-pad">
-        <div class="widget">
-          <div class="widget-header">
-            <h2>Widget 3.</h2>
-          </div>
-          <ul>
-            <li>Shower</li>
-            <li>Stretch</li>
-            <li class="finished">Walk</li>
-            <li class="finished">Talk</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </div>
-
 
 <div id="add-widget">
   <div class="container">
@@ -76,9 +53,9 @@
               Add widget
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Text</a><br />
-              <a class="dropdown-item" href="#">Todo</a><br />
-              <a class="dropdown-item" href="#">Image</a>
+              <a class="dropdown-item" href="javascript:addWidget('text')">Text</a><br />
+              <a class="dropdown-item" href="javascript:addWidget('checklist')">Todo</a><br />
+              <a class="dropdown-item" href="javascript:addWidget('image')">Image</a>
             </div>
           </div>
         </div>
