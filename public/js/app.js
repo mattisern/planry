@@ -18,6 +18,10 @@ socket.on('updateWidget', function(data) {
     $("#widget-"+data.widgetId).find('[name="' + data.updateField +'"]').val(state[data.updateField]);
 });
 
+socket.on('error-event', function (data) {
+    window.alert(data.errorMessage);
+});
+
 $('#title').on('change', function(e) {
     socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
 });

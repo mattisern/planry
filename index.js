@@ -112,7 +112,6 @@ io.on('connection', function (socket) {
             done();
             if (err) {
               console.error(err);
-              return false;
             } else {
               let widget = result.rows[0];
               if (widget) {
@@ -135,7 +134,7 @@ io.on('connection', function (socket) {
         });
       } //else if (data.type === 'checklist') {}
       else {
-        socket.emit('error', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"});
+        socket.emit('error-event', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"} );
       }
   });
 
