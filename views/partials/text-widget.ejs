@@ -7,9 +7,7 @@
               onchange="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
       <textarea
-          rows='10'
-          data-min-rows='10'
-          class="autoExpand"
+          class="widget-content"
           name="text"
           onchange="javascript:updateWidget(<%= widget.id %>, this)"><%= widget.state.text %>
       </textarea>

@@ -57,6 +57,11 @@ li.finished {
   margin-top: 60px;
 }
 
+.widget-content {
+  height: 74%;
+  overflow-y: scroll;
+}
+
 .widget {
   margin: 0px 60px 20px -20px;
   width: 360px;
@@ -72,7 +77,6 @@ li.finished {
 .text-widget > textarea {
   display: block;
   width: 100%;
-  overflow: hidden;
   border: 0;
   resize: none;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
