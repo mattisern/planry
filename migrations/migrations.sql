@@ -1,7 +1,7 @@
 create table boards (
     id SERIAL,
     identifier UUID,
-    name VARCHAR DEFAULT 'New board'
+    name VARCHAR DEFAULT 'Your project name'
 );
 
 create table widgets (
