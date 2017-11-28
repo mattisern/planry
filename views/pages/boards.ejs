@@ -45,12 +45,21 @@
       %>
      <!-- end loop -->
 
-     <div class="col-md-3 widget add-widget" id="add-widget">
-            <a href="#">
-              <img src="/img/plus.png" class="add-plus"/>
-              <br/>
-            Add thing
-          </a>
+     <div class="col-md-3 widget add-widget" id="add-widget"
+          <div class="dropdown">
+            <div class="dropdown show">
+              <a class="btn btn-secondary dropdown-toggle add-widget" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="/img/plus.png" class="add-plus"/>
+                  <br/>
+                Add thing
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="javascript:addWidget('text')">Text</a><br />
+                <a class="dropdown-item" href="javascript:addWidget('checklist')">Todo</a><br />
+                <a class="dropdown-item" href="javascript:addWidget('image')">Image</a>
+              </div>
+            </div>
+          </div>
        </div>
     </div>
   </div>
