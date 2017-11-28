@@ -58,7 +58,7 @@ li.finished {
 }
 
 .widget {
-  margin: 0px 20px 20px 0px;
+  margin: 0px 60px 20px -20px;
   width: 360px;
   height: 640px;
   background-color: #fff;
@@ -79,6 +79,24 @@ li.finished {
   color: #444;
   font-size: 15px;
   line-height: 24px;
+}
+
+.checklist-widget .list-group-item {
+  border: 0;
+}
+
+.editable-label {
+  border: none;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  background-color: transparent;
+  transition: box-shadow .2s ease-in;
+  outline: 0;
+  width: 230px;
+  text-overflow: ellipsis;
+}
+
+.checklist-widget input[type=checkbox] {
+  color: #0DFF92;
 }
 
 .add-widget {
@@ -119,16 +137,6 @@ li.finished {
 
 .dropdown-menu a:hover {
   color: #000;
-}
-
-.editable-label {
-  border: none;
-  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  background-color: transparent;
-  transition: box-shadow .2s ease-in;
-  outline: 0;
-  width: 380px;
-  text-overflow: ellipsis;
 }
 
 .editable-header {
