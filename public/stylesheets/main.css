@@ -1,17 +1,21 @@
 body {
-  background-color: #fbfbf9;
+  background-color: #f0efea;
+}
+
+.container {
+  width: 1280px;
 }
 
 p, a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  color: #222;
-  font-size: 14px;
+  color: #444;
+  font-size: 15px;
   line-height: 24px;
 }
 
 h1, h2 {
   font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
-  color: #333;
+  color: #00aeef;
 }
 
 h1 {
@@ -19,11 +23,10 @@ h1 {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 36px;
 }
 
 .navigation {
-  padding-top: 12px;
 }
 
 .navigation a {
@@ -37,7 +40,7 @@ h2 {
 li {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #222;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 24px;
 }
 
@@ -45,7 +48,6 @@ li.finished {
   color: #ddd;
   text-decoration: line-through;
 }
-
 
 #project-name {
   margin-top: 50px;
@@ -55,18 +57,16 @@ li.finished {
   margin-top: 60px;
 }
 
-.widget-pad {
-  padding: 20px;
-}
-
 .widget {
+  margin: 0px 20px 20px 0px;
+  width: 360px;
+  height: 640px;
   background-color: #fff;
-  padding: 60px 30px;
+  padding: 0px 20px;
 }
 
 .widget-header {
   text-align: center;
-  margin-bottom: 60px;
 }
 
 .text-widget > textarea {
@@ -76,26 +76,34 @@ li.finished {
   border: 0;
   resize: none;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  color: #222;
-  font-size: 14px;
+  color: #444;
+  font-size: 15px;
   line-height: 24px;
-  height: 100%;
 }
 
-#add-widget {
+.add-widget {
   text-align: center;
-  margin: 40px 0px;
+  width: 360px;
+  height: 640px;
+  background-color: #f0efea;
 }
 
-a.add-widget {
-  font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
-  font-size: 24px;
-  color: #999;
+.add-widget a {
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #d8d7d2;
+  text-transform: uppercase;
 }
 
-#add-widget a:hover {
+.add-widget a:hover {
   text-decoration: none;
-  color: #666;
+  color: #00aeef;
+}
+
+.add-plus {
+  width: 80px;
+  margin-bottom: 20px;
+  margin-top: 180px;
 }
 
 .dropdown-menu {
@@ -130,16 +138,19 @@ a.add-widget {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  color: #333;
+  color: #00aeef;
   padding: 0;
+  text-transform: uppercase;
 }
 
 .editable-header.h1 {
-  font-size: 26px;
+  font-size: 30px;
 }
 
 .editable-header.h2 {
   font-size: 18px;
+  padding-top: 40px;
+  margin-bottom: 40px;
 }
 
 ul {
@@ -158,5 +169,5 @@ ul {
 .editable-header:focus,
 .editable-label:hover,
 .editable-label:focus {
-  box-shadow: 0 2px 0 #4ab9d6;
+  box-shadow: 0 2px 0 #00aeef;
 }
