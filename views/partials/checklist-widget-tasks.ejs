@@ -16,7 +16,7 @@
         onchange="javascript:updateTask(<%= widget.id %>, this)" />
 
       </input>
-      <span class="badge badge-warning clickable" onclick="javascript:deleteTask(<%= widget.id %>, '<%=task.id%>')">x</span>
+      <span class="clickable delete-task" onclick="javascript:deleteTask(<%= widget.id %>, '<%=task.id%>')">x</span>
     </li>
   <% }%>
 </ul>

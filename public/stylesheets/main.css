@@ -95,12 +95,31 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 230px;
+  width: 240px;
   text-overflow: ellipsis;
+  margin-right: 20px;
 }
 
 .checklist-widget input[type=checkbox] {
-  color: #0DFF92;
+
+}
+
+.add-task {
+  color: #d8d7d2;
+}
+
+.add-task:hover {
+  color: #00aeef;
+}
+
+.delete-task {
+  color: #d8d7d2;
+  font-size: 14px;
+  padding-bottom: 8px;
+}
+
+.delete-task:hover {
+  color: #00aeef;
 }
 
 .add-widget {
