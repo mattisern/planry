@@ -138,6 +138,12 @@ li.finished {
     content: url('/img/plus-hover.png');
 }
 
+.add-plus {
+  width: 80px;
+  margin-bottom: 20px;
+  margin-top: 70px;
+}
+
 .card-type a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   font-size: 15px;
@@ -148,21 +154,6 @@ li.finished {
  .widget .add-widget-card .dropdown-toggle .card-type a:hover {
   text-decoration: none;
   color: #ffffff;
-}
-
-.add-plus {
-  width: 80px;
-  margin-bottom: 20px;
-  margin-top: 80px;
-}
-
-.add-card-text {
-  text-transform: uppercase;
-  color: #bfbfbf;
-}
-
-.add-card-text a:hover {
-  color: #00aeef;
 }
 
 .dropdown-menu {
@@ -240,6 +231,9 @@ p.footer {
     .add-widget-card {
       text-align: center;
       height: 640px;
+    }
+    .add-plus {
+      margin-top: 260px;
     }
     p.footer {
       padding-top: 40px;
