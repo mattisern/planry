@@ -10,7 +10,7 @@ p, a {
 }
 
 h1, h2 {
-  font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
   color: #00aeef;
 }
 
@@ -173,7 +173,7 @@ li.finished {
 
 .editable-header {
   border: none;
-  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
   text-align: center;
   background-color: transparent;
   transition: box-shadow .2s ease-in;
