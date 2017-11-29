@@ -199,6 +199,7 @@ io.on('connection', function (socket) {
     pg.connect(process.env.DATABASE_URL, (err, client, done) => {
       let query = `DELETE FROM widgets WHERE id = ${data.widgetId}`;
       client.query(query, (err, result) => {
+        done();
         if (err) {
           console.log(err);
         } else {
