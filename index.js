@@ -39,7 +39,7 @@ app.get('/boards/:uuid', (req, res) => {
         let board = result.rows[0];
 
         //get associatied widgets
-        let query = 'SELECT * FROM widgets where board_id = ' + board.id;
+        let query = `SELECT * FROM widgets where board_id = ${board.id} ORDER BY id`;
 
         client.query(query, function(err, result) {
           done();
