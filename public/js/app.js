@@ -18,10 +18,13 @@ socket.on('updateWidget', function(data) {
     $("#widget-"+data.widgetId).find('[name="' + data.updateField +'"]').val(state[data.updateField]);
 });
 
+socket.on('deleteWidget', function(data) {
+    $('#widget-'+data.widgetId).remove();
+});
+
 socket.on('addWidgetTask', function(data) {
     $('#widget-'+data.widget.id).find('#tasks').replaceWith(data.html);
 });
-
 
 socket.on('updateTask', function(data) {
     let fieldToUpdate = $('#'+data.task.id).find('[name="' + data.updateField +'"]');
@@ -57,7 +60,9 @@ function updateWidget(widgetId, el) {
 }
 
 function deleteWidget(widgetId) {
-    socket.emit('deleteWidget', {widgetId: widgetId}); //not implemented yet
+    if (window.confirm('Are you sure you want to delete this widget?')) {
+            socket.emit('deleteWidget', {widgetId: widgetId});
+        }
 }
 
 function addWidgetTask(widgetId) {
