@@ -239,6 +239,9 @@ p.footer {
       padding-top: 40px;
       margin-bottom: 80px;
     }
+    .dropdown-menu {
+      top: 48%;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
