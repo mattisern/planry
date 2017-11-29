@@ -103,7 +103,7 @@ io.on('connection', function (socket) {
 
       if (data.type === 'text') {
         let type = 1;
-        let defaultState = JSON.stringify({name: "new text widget", text: "start typing here"});
+        let defaultState = JSON.stringify({name: "new text widget", text: "Start typing here ..."});
 
         pg.connect(process.env.DATABASE_URL, function(err, client, done) {
           let query = `INSERT INTO widgets (board_id, type, state) values (${board_id}, ${type}, '${defaultState}') returning *` ;
@@ -315,7 +315,3 @@ io.on('connection', function (socket) {
   });
 
 });
-
-
-
-

@@ -2,10 +2,6 @@ body {
   background-color: #f0efea;
 }
 
-.container {
-  width: 1280px;
-}
-
 p, a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #444;
@@ -41,7 +37,11 @@ li {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #222;
   font-size: 15px;
-  line-height: 24px;
+  line-height: 36px;
+}
+
+.list-group-item, .list-group-item:last-child {
+  padding: 0;
 }
 
 li.finished {
@@ -53,8 +53,25 @@ li.finished {
   margin-top: 50px;
 }
 
-#widgets {
-  margin-top: 60px;
+#widgets-container {
+  margin: auto;
+  width: 90%;
+}
+
+@media only screen and (min-width: 1400px) {
+    #widgets-container {
+      margin-top: 60px;
+      width: 1280px;
+    }
+}
+
+.widget {
+  margin: 0px 20px 40px 20px;
+  width: 360px;
+  height: 640px;
+  background-color: #fff;
+  padding: 0px 20px;
+  float: left;
 }
 
 .widget-content {
@@ -62,13 +79,6 @@ li.finished {
   overflow-y: scroll;
 }
 
-.widget {
-  margin: 0px 60px 20px -20px;
-  width: 360px;
-  height: 640px;
-  background-color: #fff;
-  padding: 0px 20px;
-}
 
 .widget-header {
   text-align: center;
@@ -122,21 +132,28 @@ li.finished {
   color: #00aeef;
 }
 
-.add-widget {
+.add-widget-card {
   text-align: center;
   width: 360px;
   height: 640px;
   background-color: #f0efea;
+  border-width: 2px;
+  border-color: #bfbfbf;
+  border-style: dashed;
 }
 
-.add-widget a {
+.add-plus:hover {
+    content: url('/img/plus-hover.png');
+}
+
+.add-widget-card a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   font-size: 15px;
-  color: #d8d7d2;
-  text-transform: uppercase;
+  color: #444;
+  line-height: 36px;
 }
 
-.add-widget a:hover {
+.add-widget-card a:hover {
   text-decoration: none;
   color: #00aeef;
 }
@@ -147,11 +164,20 @@ li.finished {
   margin-top: 180px;
 }
 
+.add-card-text {
+  text-transform: uppercase;
+  color: #bfbfbf;
+}
+
+.add-card-text a:hover {
+  color: #00aeef;
+}
+
 .dropdown-menu {
   left: 30%;
   top: 28%;
   background-color: #fbfbf9;
-  padding: 20px;
+  padding: 40px;
   border: 0;
   box-shadow: 0px;
   color: #333;

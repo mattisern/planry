@@ -24,9 +24,7 @@
   </div>
 </div>
 
-<div id="widgets">
-  <div class="container">
-    <div class="row" id="widgets-container">
+<div id="widgets-container">
       <!-- start widget loop -->
       <%
         let widgets = board.widgets;
@@ -45,13 +43,13 @@
       %>
      <!-- end loop -->
 
-     <div class="col-md-3 widget add-widget" id="add-widget"
+     <div class="widget add-widget-card" id="add-widget"
           <div class="dropdown">
             <div class="dropdown show">
-              <a class="btn btn-secondary dropdown-toggle add-widget" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="btn btn-secondary dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="/img/plus.png" class="add-plus"/>
                   <br/>
-                Add thing
+                <span class="add-card-text">Add thing</a>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="javascript:addWidget('text')">Text</a><br />
@@ -65,7 +63,13 @@
   </div>
 </div>
 
-
+<container>
+  <row>
+    <div class="col-sm-12 text-center">
+      <p>Email us with feedback: hello@togetherrr.com</p>
+    </div>
+  </div>
+</div>
 
 <% include ../partials/scripts.ejs %>
 </body>
