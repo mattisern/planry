@@ -22,7 +22,9 @@ h2 {
   font-size: 36px;
 }
 
-.navigation {
+.subheader {
+  color: #999999;
+  margin: 0;
 }
 
 .navigation a {
@@ -50,7 +52,6 @@ li.finished {
 }
 
 #project-name {
-  margin-top: 20px;
 }
 
 #widgets-container {
@@ -193,10 +194,13 @@ li.finished {
 
 .editable-header.h1 {
   font-size: 30px;
+  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
+  margin-top: 40px;
 }
 
 .editable-header.h2 {
   font-size: 18px;
+  margin-top: 0;
   padding-top: 40px;
   margin-bottom: 40px;
 }
@@ -213,23 +217,24 @@ ul {
   text-align: center;
 }
 
-.editable-header:hover,
-.editable-header:focus,
-.editable-label:hover,
-.editable-label:focus {
-  box-shadow: 0 1px 0px #00aeef;
-}
-
 p.footer {
   clear: both;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
+.widget-content:focus {
+    outline: none !important;
+    border:0px solid white;
+    box-shadow: 0 0 0 #ffffff;
+}
 
 @media only screen and (min-width: 800px) {
+  .editable-header.h1 {
+    margin-top: 80px;
+  }
     #widgets-container {
-      margin-top: 60px;
+      margin-top: 80px;
       width: 800px;
     }
     .add-widget-card {
