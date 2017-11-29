@@ -195,6 +195,20 @@ io.on('connection', function (socket) {
         });
   });
 
+  socket.on('deleteWidget', (data) => {
+    pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+      let query = `DELETE FROM widgets WHERE id = ${data.widgetId}`;
+      client.query(query, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          socket.broadcast.to(room).emit('deleteWidget', data);
+          socket.emit('deleteWidget', data);
+        }
+      });
+    });
+  });
+
   socket.on('addWidgetTask', (data) => {
     let defaultTask = { id: uuid(), description: 'New Task', completed: false};
 
