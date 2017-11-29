@@ -10,7 +10,7 @@ socket.on('addWidget', function (data) {
     window.GLOBALS.board.widgets = window.GLOBALS.board.widgets || [];
     let widgets = window.GLOBALS.board.widgets;
     widgets.push(data.widget);
-    $('#widgets-container').append(data.html);
+    $('#add-widget').before(data.html);
 });
 
 socket.on('updateWidget', function(data) {
