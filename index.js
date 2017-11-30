@@ -46,7 +46,7 @@ models.sequelize.sync().then(()=> {
 });
 
 
-//event handling with socket io
+//event handling with socket iox
 io.on('connection', function (socket) {
 
   let room = socket.handshake.query.room;

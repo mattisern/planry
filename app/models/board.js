@@ -9,7 +9,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         name : {
             type: DataTypes.STRING,
-            defaultValue: 'Your project name',
             allowNull: true
         }
     });

@@ -42,10 +42,10 @@ module.exports = function(sequelize, DataTypes) {
 
         switch (this.type) {
             case 1 :
-                defaultState = {name: "new text widget", text: "Start typing here ..."};
+                defaultState = {name: "", text: ""};
                 break;
             case 2 :
-                defaultState = {name: "new todo widget", tasks: [{ id: uuid(), description: 'New Task', completed: false}]};
+                defaultState = {name: "", tasks: [{ id: uuid(), description: '', completed: false}]};
         }
 
         return defaultState;
