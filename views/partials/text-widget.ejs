@@ -4,15 +4,12 @@
           <input type="text"
               class="editable-header h2"
               name="name"
-              placeholder="New text widget"
-              onfocus="this.placeholder=''"
-              onblur="this.placeholder='New text widget'"
               value="<%= widget.state.name %>"
-              onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
+              onchange="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
       <textarea
           class="widget-content"
           name="text"
-          placeholder="Start typing here ..."
-          onkeyup="javascript:updateWidget(<%= widget.id %>, this)"><%=widget.state.text%></textarea>
+          onchange="javascript:updateWidget(<%= widget.id %>, this)"><%= widget.state.text %>
+      </textarea>
 </div>

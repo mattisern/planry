@@ -47,7 +47,7 @@ socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
 
-$('#title').on('keyup', function(e) {
+$('#title').on('change', function(e) {
     socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
 });
 
