@@ -145,7 +145,7 @@ ul#tasks {
 
 .add-widget-card {
   text-align: center;
-  width: 360px;
+  width: 100%;
   height: 240px;
   background-color: #f0efea;
   border-width: 2px;
@@ -228,10 +228,15 @@ ul {
   text-align: center;
 }
 
+.footer {
+  max-width: 90%;
+  margin: 20px auto;
+}
+
 p.footer {
   clear: both;
-  padding: 0;
-  margin-bottom: 40px;
+  text-align: center;
+  padding: 20px 0;
 }
 
 .widget-content:focus {
@@ -249,6 +254,11 @@ p.footer {
     width: 360px;
     margin: 0px 20px 40px 20px;
   }
+  .add-widget-card {
+    width: 360px;
+    margin: 0px 20px 40px 20px;
+  }
+
 }
 
 @media only screen and (min-width: 800px) {
