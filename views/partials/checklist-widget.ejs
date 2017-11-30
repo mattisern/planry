@@ -5,8 +5,11 @@
         <input type="text"
         class="editable-header h2"
         name="name"
+        placeholder="New todo widget"
+        onfocus="this.placeholder=''"
+        onblur="this.placeholder='New todo widget'"
         value="<%= widget.state.name %>"
-        onchange="javascript:updateWidget(<%= widget.id %>, this)" />
+        onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
     </div>
 
