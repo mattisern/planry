@@ -110,6 +110,11 @@ li.finished {
   color: #d8d7d2;
 }
 
+ul#tasks {
+  max-height: 455px;
+  overflow: auto;
+}
+
 .add-task:hover {
   color: #00aeef;
 }
@@ -192,6 +197,7 @@ li.finished {
   color: #00aeef;
   padding: 0;
   text-transform: uppercase;
+  text-overflow: ellipsis;
 }
 
 .editable-header.h1 {
