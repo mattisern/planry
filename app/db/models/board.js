@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     var Board = sequelize.define("board", {
         identifier : {
             type: DataTypes.UUID,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         name : {
             type: DataTypes.STRING,

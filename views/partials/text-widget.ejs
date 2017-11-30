@@ -8,12 +8,12 @@
               onfocus="this.placeholder=''"
               onblur="this.placeholder='New text widget'"
               value="<%= widget.state.name %>"
-              onchange="javascript:updateWidget(<%= widget.id %>, this)" />
+              onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
       <textarea
           class="widget-content"
           name="text"
           placeholder="Start typing here ..."
-          onchange="javascript:updateWidget(<%= widget.id %>, this)"><%= widget.state.text %>
+          onkeyup="javascript:updateWidget(<%= widget.id %>, this)"><%= widget.state.text %>
       </textarea>
 </div>

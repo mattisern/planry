@@ -14,7 +14,7 @@
         name="description"
         placeholder="New Task"
         value="<%= task.description %>"
-        onchange="javascript:updateTask(<%= widget.id %>, this)" />
+        onkeyup="javascript:updateTask(<%= widget.id %>, this)" />
 
       </input>
       <span class="clickable delete-task" onclick="javascript:deleteTask(<%= widget.id %>, '<%=task.id%>')">x</span>

@@ -6,7 +6,7 @@ const http = require('http');
 // const url = require('url');
 const ejs = require('ejs');
 const fs = require('fs');
-const models  = require('./app/models');
+const models  = require('./app/db/models');
 
 let app = express();
 let server = http.Server(app);
