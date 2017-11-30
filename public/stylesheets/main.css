@@ -57,12 +57,12 @@ li.finished {
 #widgets-container {
   margin: auto;
   margin-top: 20px;
-  width: 400px;
+  width: 90%;
 }
 
 .widget {
-  margin: 0px 20px 40px 20px;
-  width: 360px;
+  margin: 0;
+  width: 100%;
   height: 640px;
   background-color: #fff;
   padding: 0px 20px;
@@ -70,8 +70,8 @@ li.finished {
 }
 
 .widget-content {
-  height: 74%;
-  overflow-y: scroll;
+  height: 500px;
+  overflow-y: auto;
 }
 
 .widget-header {
@@ -99,7 +99,7 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 240px;
+  width: 270px;
   text-overflow: ellipsis;
   margin-right: 20px;
   padding: 0;
@@ -108,6 +108,12 @@ li.finished {
 
 .add-task {
   color: #d8d7d2;
+  font-size: 22px;
+}
+
+ul#tasks {
+  max-height: 455px;
+  overflow: auto;
 }
 
 .add-task:hover {
@@ -117,7 +123,6 @@ li.finished {
 .delete-task {
   color: #d8d7d2;
   font-size: 14px;
-  padding-bottom: 8px;
 }
 
 .delete-task:hover {
@@ -127,7 +132,10 @@ li.finished {
 .delete-widget {
   float:right;
   color: #d8d7d2;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   font-size: 14px;
+  padding-top: 12px;
+  margin-right: 2px;
   padding-bottom: 8px;
 }
 
@@ -137,7 +145,7 @@ li.finished {
 
 .add-widget-card {
   text-align: center;
-  width: 360px;
+  width: 100%;
   height: 240px;
   background-color: #f0efea;
   border-width: 2px;
@@ -192,6 +200,7 @@ li.finished {
   color: #00aeef;
   padding: 0;
   text-transform: uppercase;
+  text-overflow: ellipsis;
 }
 
 .editable-header::placeholder {
@@ -224,16 +233,37 @@ ul {
   text-align: center;
 }
 
+.footer {
+  max-width: 90%;
+  margin: 20px auto;
+}
+
 p.footer {
   clear: both;
-  padding: 0;
-  margin-bottom: 40px;
+  text-align: center;
+  padding: 20px 0;
 }
 
 .widget-content:focus {
     outline: none !important;
     border:0px solid white;
     box-shadow: 0 0 0 #ffffff;
+}
+
+@media only screen and (min-width: 500px) {
+  #widgets-container {
+    width: 400px;
+  }
+
+  .widget {
+    width: 360px;
+    margin: 0px 20px 40px 20px;
+  }
+  .add-widget-card {
+    width: 360px;
+    margin: 0px 20px 40px 20px;
+  }
+
 }
 
 @media only screen and (min-width: 800px) {

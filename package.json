@@ -17,6 +17,7 @@
     "pg": "^7.4.0",
     "sequelize": "^4.23.2",
     "sequelize-cli": "^3.1.0",
+    "heroku-ssl-redirect": "0.0.4",
     "socket.io": "^2.0.4",
     "uuid": "^3.1.0"
   },
