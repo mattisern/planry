@@ -70,18 +70,16 @@ io.on('connection', function (socket) {
 
   socket.on('addWidget', (data) => {
       let boardId = data.boardId;
+      let type = data.type === 'text' ? 1 : data.type === 'checklist' ? 2 : null;
 
-      if (data.type === 'text') {
-        let type = 1;
-        let defaultState = {name: "new text widget", text: "Start typing here ..."};
+      if (models.widget.getAllowedTypes().includes(type)) {
 
-        models.widget.create({
-          type: type,
-          state: defaultState,
-          boardId : boardId
-        }).then( widget => {
+        let widget = models.widget.build({type: type, boardId: boardId});
+        widget.state = widget.getDefaultState();
+
+        widget.save().then( widget => {
           if (widget) {
-            ejs.renderFile('views/partials/text-widget.ejs', {widget: widget}, {}, (err, str) => {
+            ejs.renderFile(widget.getTemplateUrl(), {widget: widget}, {}, (err, str) => {
               if (err) {
                 console.log(err);
               } else {
@@ -92,27 +90,7 @@ io.on('connection', function (socket) {
             });
           }
         });
-      } else if (data.type === 'checklist') {
-        let type = 2;
-        let defaultState = {name: "new todo widget", tasks: [{ id: uuid(), description: 'New Task', completed: false}]};
-        models.widget.create({
-          type: type,
-          state: defaultState,
-          boardId: boardId
-        }).then( widget => {
-          if (widget) {
-              ejs.renderFile('views/partials/checklist-widget.ejs', {widget: widget}, {}, (err, str) => {
-              if (err) {
-                console.log(err);
-              } else {
-                let template = str;
-                socket.broadcast.to(room).emit('addWidget', {widget: widget, html: template});
-                socket.emit('addWidget', {widget: widget, html: template});
-              }
-            });
 
-          }
-        });
       } else {
         socket.emit('error-event', { errorMessage: 'could not create widget of type ' + data.type + ". This type is not supported yet"} );
       }
@@ -147,7 +125,7 @@ io.on('connection', function (socket) {
     let defaultTask = { id: uuid(), description: 'New Task', completed: false};
 
     models.widget.findOne({where: {id: data.widgetId}}).then(widget => {
-      //sequelize is a little wierd when manipulating state. Clone array and insert to force update
+      //sequelize is a little wierd when manipulating json. Clone array and insert to force update
       let tasks = widget.state.tasks.slice();
       tasks.push(defaultTask);
       widget.set('state.tasks', tasks);
