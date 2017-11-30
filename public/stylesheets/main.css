@@ -203,6 +203,11 @@ ul#tasks {
   text-overflow: ellipsis;
 }
 
+.editable-header::placeholder {
+  color: #00aeef;
+
+}
+
 .editable-header.h1 {
   font-size: 30px;
   font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
