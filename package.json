@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "node test.js",
-    "sequelize": "cd app/db/ && ../../node_modules/.bin/sequelize"
+    "migrate": "cd app/db/ && ../../node_modules/.bin/sequelize db:migrate",
+    "heroku-postbuild": "cd app/db/ && ../../node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
     "ejs": "^2.5.6",
