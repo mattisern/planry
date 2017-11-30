@@ -17,7 +17,13 @@
   <div class="container text-center">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <input id="title" class="editable-header h1" type="text" placeholder="Your project name" value="<%= board['name'] %>"></input>
+        <input id="title" class="editable-header h1"
+          type="text"
+          placeholder="Your project name"
+          onfocus="this.placeholder=''"
+          onblur="this.placeholder='Your project name'"
+          value="<%= board['name'] %>"
+        />
         <p class="subheader">Share the URL with your friends and start collaborating!</p>
       </div>
     </div>
