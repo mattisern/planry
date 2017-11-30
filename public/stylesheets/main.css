@@ -99,7 +99,7 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 240px;
+  width: 270px;
   text-overflow: ellipsis;
   margin-right: 20px;
   padding: 0;
@@ -108,6 +108,7 @@ li.finished {
 
 .add-task {
   color: #d8d7d2;
+  font-size: 22px;
 }
 
 ul#tasks {
@@ -122,7 +123,6 @@ ul#tasks {
 .delete-task {
   color: #d8d7d2;
   font-size: 14px;
-  padding-bottom: 8px;
 }
 
 .delete-task:hover {
@@ -132,7 +132,10 @@ ul#tasks {
 .delete-widget {
   float:right;
   color: #d8d7d2;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   font-size: 14px;
+  padding-top: 12px;
+  margin-right: 2px;
   padding-bottom: 8px;
 }
 
