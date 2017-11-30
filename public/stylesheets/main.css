@@ -70,8 +70,8 @@ li.finished {
 }
 
 .widget-content {
-  height: 74%;
-  overflow-y: scroll;
+  height: 500px;
+  overflow-y: auto;
 }
 
 .widget-header {
