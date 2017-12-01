@@ -2,6 +2,12 @@
 
 let socket = io.connect('', {query: 'room='+window.GLOBALS.board.identifier});
 
+socket.on('joinedRoom', function (data) {
+    let elems = $('#' + data.lockedElementIds.join(', #'));
+    elems.prop('disabled', true);
+    elems.addClass('notify-edit');
+});
+
 socket.on('titleUpdated', function (data) {
     $('#title').val(data.name);
 });
@@ -48,11 +54,15 @@ socket.on('error-event', function (data) {
 });
 
 socket.on('startEditInput', function (data) {
-    console.log('startEditInput fired with ', data.elementId);
+    let element = $('#'+data.elementId);
+    element.prop('disabled', true);
+    element.addClass('notify-edit');
 });
 
 socket.on('stopEditInput', function (data) {
-    console.log('stopEditInput fired with ', data.elementId);
+    let element = $('#'+data.elementId)
+    element.prop('disabled', false);
+    element.removeClass('notify-edit');
 });
 
 $('#title').on('keyup', function(e) {
