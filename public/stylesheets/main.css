@@ -22,6 +22,11 @@ h2 {
   font-size: 36px;
 }
 
+input.notify-edit,
+textarea.notify-edit {
+  background-color: #b556308a;
+}
+
 .subheader {
   color: #999999;
   margin: 0;

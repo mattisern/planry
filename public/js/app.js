@@ -2,6 +2,12 @@
 
 let socket = io.connect('', {query: 'room='+window.GLOBALS.board.identifier});
 
+socket.on('joinedRoom', function (data) {
+    let elems = $('#' + data.lockedElementIds.join(', #'));
+    elems.prop('disabled', true);
+    elems.addClass('notify-edit');
+});
+
 socket.on('titleUpdated', function (data) {
     $('#title').val(data.name);
 });
@@ -47,6 +53,18 @@ socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
 
+socket.on('startEditInput', function (data) {
+    let element = $('#'+data.elementId);
+    element.prop('disabled', true);
+    element.addClass('notify-edit');
+});
+
+socket.on('stopEditInput', function (data) {
+    let element = $('#'+data.elementId)
+    element.prop('disabled', false);
+    element.removeClass('notify-edit');
+});
+
 $('#title').on('keyup', function(e) {
     socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
 });
@@ -80,4 +98,12 @@ function updateTask(widgetId, el) {
 
 function deleteTask(widgetId, taskId) {
     socket.emit('deleteTask', {widgetId: widgetId, taskId: taskId});
+}
+
+function startEditInput(el) {
+    socket.emit('startEditInput', {elementId: el.id});
+}
+
+function stopEditInput(el) {
+    socket.emit('stopEditInput', {elementId: el.id});
 }

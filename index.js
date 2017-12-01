@@ -46,13 +46,34 @@ models.sequelize.sync().then(()=> {
   server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 });
 
+let rooms = {};
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 
 //event handling with socket iox
 io.on('connection', function (socket) {
 
   let room = socket.handshake.query.room;
+  let user = {};
 
   socket.join(room);
+
+  if (rooms[room]) {
+    socket.emit('joinedRoom', { lockedElementIds: rooms[room].lockedElementIds });
+  } else {
+    rooms[room] = {
+      lockedElementIds: []
+    };
+  }
 
   socket.on('titleUpdated', (data) => {
 
@@ -189,6 +210,24 @@ io.on('connection', function (socket) {
         socket.emit('deleteTask', {taskId : data.taskId});
       });
     });
+  });
+
+  socket.on('startEditInput', (el) => {
+    user.editingElementId = el.elementId;
+    rooms[room].lockedElementIds.push(el.elementId);
+    socket.broadcast.to(room).emit('startEditInput', {elementId: el.elementId});
+  });
+
+  socket.on('stopEditInput', (el) => {
+    user.editingElementId = null;
+    rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(el.elementId);
+    socket.broadcast.to(room).emit('stopEditInput', {elementId: el.elementId});
+  });
+
+  socket.on('disconnect', (data) => {
+    if (user.editingElementId) {
+      socket.broadcast.to(room).emit('stopEditInput', {elementId: user.editingElementId});
+    }
   });
 
 });
