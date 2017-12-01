@@ -47,6 +47,14 @@ socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
 
+socket.on('startEditWidget', function (data) {
+    console.log('startEditWidget fired with ', data);
+});
+
+socket.on('stopEditWidget', function (data) {
+    console.log('stopEditWidget fired with ', data);
+});
+
 $('#title').on('keyup', function(e) {
     socket.emit('titleUpdated', {board: window.GLOBALS.board, title: this.value})
 });
@@ -80,4 +88,12 @@ function updateTask(widgetId, el) {
 
 function deleteTask(widgetId, taskId) {
     socket.emit('deleteTask', {widgetId: widgetId, taskId: taskId});
+}
+
+function startEditWidget(widgetId) {
+    socket.emit('startEditWidget', {widgetId: widgetId});
+}
+
+function stopEditWidget() {
+    socket.emit('stopEditWidget', {widgetID: widgetId});
 }
