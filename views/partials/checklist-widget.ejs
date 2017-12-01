@@ -3,13 +3,14 @@
     <div class="widget-header">
       <div class="widget-header">
         <input type="text"
-        class="editable-header h2"
-        name="name"
-        placeholder="New todo widget"
-        onfocus="this.placeholder=''"
-        onblur="this.placeholder='New todo widget'"
-        value="<%= widget.state.name %>"
-        onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
+          id="widget-<%=widget.id%>-name"
+          class="editable-header h2"
+          name="name"
+          placeholder="New todo widget"
+          onfocus="this.placeholder='';startEditInput(this)"
+          onblur="this.placeholder='New todo widget';stopEditInput(this)"
+          value="<%= widget.state.name %>"
+          onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
     </div>
 

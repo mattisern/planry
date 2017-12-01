@@ -2,15 +2,19 @@
     <span class="clickable delete-widget" onclick="javascript:deleteWidget(<%= widget.id %>)">x</span>
       <div class="widget-header">
           <input type="text"
+              id="widget-<%=widget.id%>-name"
               class="editable-header h2"
               name="name"
               placeholder="New text widget"
-              onfocus="this.placeholder=''"
-              onblur="this.placeholder='New text widget'"
+              onfocus="this.placeholder=''; startEditInput(this)"
+              onblur="this.placeholder='New text widget'; stopEditInput(this)"
               value="<%= widget.state.name %>"
               onkeyup="javascript:updateWidget(<%= widget.id %>, this)" />
       </div>
       <textarea
+          id="widget-<%=widget.id%>-text"
+          onfocus="startEditInput(this)"
+          onblur="stopEditInput(this)"
           class="widget-content"
           name="text"
           placeholder="Start typing here ..."

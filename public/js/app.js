@@ -47,12 +47,12 @@ socket.on('error-event', function (data) {
     window.alert(data.errorMessage);
 });
 
-socket.on('startEditWidget', function (data) {
-    console.log('startEditWidget fired with ', data);
+socket.on('startEditInput', function (data) {
+    console.log('startEditInput fired with ', data.elementId);
 });
 
-socket.on('stopEditWidget', function (data) {
-    console.log('stopEditWidget fired with ', data);
+socket.on('stopEditInput', function (data) {
+    console.log('stopEditInput fired with ', data.elementId);
 });
 
 $('#title').on('keyup', function(e) {
@@ -90,10 +90,10 @@ function deleteTask(widgetId, taskId) {
     socket.emit('deleteTask', {widgetId: widgetId, taskId: taskId});
 }
 
-function startEditWidget(widgetId) {
-    socket.emit('startEditWidget', {widgetId: widgetId});
+function startEditInput(el) {
+    socket.emit('startEditInput', {elementId: el.id});
 }
 
-function stopEditWidget() {
-    socket.emit('stopEditWidget', {widgetID: widgetId});
+function stopEditInput(el) {
+    socket.emit('stopEditInput', {elementId: el.id});
 }

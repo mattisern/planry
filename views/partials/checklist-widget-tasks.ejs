@@ -10,12 +10,14 @@
       onchange="javascript:updateTask(<%= widget.id %>, this)"
       <%= task.completed ? "checked" : "" %>>
         <input  type="text"
+        id="task-<%=task.id%>-description"
         class="editable-label"
         name="description"
         placeholder="New Task"
+        onfocus="startEditInput(this)"
+        onblur="stopEditInput(this)"
         value="<%= task.description %>"
         onkeyup="javascript:updateTask(<%= widget.id %>, this)" />
-
       </input>
       <span class="clickable delete-task" onclick="javascript:deleteTask(<%= widget.id %>, '<%=task.id%>')">x</span>
     </li>

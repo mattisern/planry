@@ -20,8 +20,8 @@
         <input id="title" class="editable-header h1"
           type="text"
           placeholder="Your project name"
-          onfocus="this.placeholder=''"
-          onblur="this.placeholder='Your project name'"
+          onfocus="this.placeholder=''; startEditInput(this)"
+          onblur="this.placeholder='Your project name'; stopEditInput(this)"
           value="<%= board['name'] %>"
         />
         <p class="subheader">Share the URL with your friends and start collaborating!</p>

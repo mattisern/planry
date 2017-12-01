@@ -191,4 +191,12 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('startEditInput', (el) => {
+    socket.broadcast.to(room).emit('startEditInput', {elementId: el.elementId});
+  });
+
+  socket.on('stopEditInput', (el) => {
+    socket.broadcast.to(room).emit('stopEditInput', {elementId: el.elementId});
+  });
+
 });
