@@ -1,0 +1,63 @@
+import React from 'react';
+
+import {observer} from "mobx-react"
+
+import WidgetDelete from "./WidgetDelete";
+import WidgetHeader from "./WidgetHeader";
+
+const Task = observer(class Task extends React.Component {
+    render () {
+        return (
+            <li className="list-group-item d-flex justify-content-between align-items-center">
+                <input
+                    type="checkbox"
+                    name="completed"
+                    checked={this.props.task.completed}
+                    onChange={(e) => this.props.task.update("completed", e.target.checked)}
+                />
+                <input
+                    type="text"
+                    className="editable-label"
+                    name="description"
+                    placeholder="New Task"
+                    value={this.props.task.description}
+                    onChange={(e) => this.props.task.update("description", e.target.value)}
+                />
+                <span className="clickable delete-task" onClick={() => this.props.task.delete()}>x</span>
+            </li>
+        )
+    }
+})
+
+const Tasks = observer(class Tasks extends React.Component {
+    render () {
+        return (
+            <ul id="tasks" className="list-group widget-content">
+                {
+                    this.props.widget.tasks.map((task) => {
+                        return <Task key={task.id} task={task} />
+                    })
+                }
+            </ul>
+        )
+    }
+})
+
+const ChecklistWidget = observer(class ChecklistWidget extends React.Component {
+    render() {
+        return (
+            <div className="widget checklist-widget">
+                <WidgetDelete widget={this.props.widget} />
+                <WidgetHeader widget={this.props.widget} />
+                <Tasks widget={this.props.widget} />
+                <div className="centered-content">
+                    <a className="btn btn-secondary add-task" role="button" onClick={() => this.props.widget.addTask()}>
+                        +<br/>
+                    </a>
+                </div>
+            </div>
+        );
+    }
+})
+
+export default ChecklistWidget;
