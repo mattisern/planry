@@ -20,11 +20,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+if (process.env.NODE_ENV !== "production") {
+  app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+  });
+}
 
 //routes TODO:extract
 app.get('/', (req, res) => res.redirect('boards'))
@@ -118,6 +120,7 @@ io.on('connection', function (socket) {
 
         widget.save().then( widget => {
           if (widget) {
+            // TODO REMOVE WHEN USING ONLY REACT
             ejs.renderFile(widget.getTemplateUrl(), {widget: widget}, {}, (err, str) => {
               if (err) {
                 console.log(err);
@@ -170,6 +173,7 @@ io.on('connection', function (socket) {
       widget.set('state.tasks', tasks);
 
       widget.save().then( widget => {
+        // TODO REMOVE WHEN USING ONLY REACT
         fs.readFile('views/partials/checklist-widget-tasks.ejs','utf-8', function(err, data) {
           if (err) {
               console.log(err);
