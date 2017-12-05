@@ -1,6 +1,5 @@
 import {extendObservable} from "mobx";
 
-import Widget from "../types/Widget";
 import ChecklistWidget from "../types/ChecklistWidget";
 import TextWidget from "../types/TextWidget";
 
@@ -25,16 +24,44 @@ class BoardStore {
         });
 
         this.socket.on("startEditInput", (data) => {
-            console.log("Start editing", data)
+            if (!data.widgetId) {
+                switch (data.field) {
+                    case "title":
+                        this.lockTitle();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            const foundWidget = this.findWidget(data.widgetId);
+            if (foundWidget) {
+                foundWidget.lock(data);
+            }
         });
         
-        this.socket.on("stopEditInput", (data) => {            
-            console.log("Start editing", data)
+        this.socket.on("stopEditInput", (data) => {        
+            if (!data.widgetId) {
+                switch (data.field) {
+                    case "title":
+                        this.unlockTitle();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            const foundWidget = this.findWidget(data.widgetId);
+            if (foundWidget) {
+                foundWidget.unlock(data);
+            }
         });
 
         this.socket.on('updateWidget', (data) => {
             const foundWidget = this.findWidget(data.widgetId);
-            foundWidget[data.updateField] = data.newState[data.updateField];
+            if (foundWidget) {
+                foundWidget[data.updateField] = data.newState[data.updateField];
+            }
         });
 
         this.socket.on('deleteWidget', (data) => {
@@ -51,6 +78,14 @@ class BoardStore {
     updateTitle (name) {
         this.socket.emit("titleUpdated", {board: this.id, title: name})
         this.name = name;
+    }
+
+    lockTitle () {
+        this.disabled = true;
+    }
+    
+    unlockTitle () {
+        this.disabled = false;
     }
 
     addWidget (type) {
@@ -113,6 +148,14 @@ class BoardStore {
             default:
                 return null
         }
+    }
+
+    onStartEditing (field) {
+        this.socket.emit('startEditInput', { field, elementId: field });
+    }
+
+    onEndEditing (field) {
+        this.socket.emit('stopEditInput', { field, elementId: field });
     }
 }
 

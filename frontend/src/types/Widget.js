@@ -6,7 +6,7 @@ export default class Widget {
     constructor (socket, id, name) {
         extendObservable(this, {
             name: "",
-            disabled: false
+            disabled: []
         })
 
         this.socket = socket;
@@ -23,5 +23,27 @@ export default class Widget {
         if (window.confirm('Are you sure you want to delete this widget?')) {
             this.socket.emit('deleteWidget', { widgetId: this.id });
         }
+    }
+
+    lock (data) {
+        this.disabled.push(data.field);
+    }
+    
+    unlock (data) {
+        this.disabled = this.disabled.filter((disabled) => {
+            return disabled !== data.field;
+        })
+    }
+
+    isDisabled (field) {
+        return this.disabled.includes(field);
+    }
+
+    onStartEditing (field) {
+        this.socket.emit('startEditInput', { widgetId: this.id, field, elementId: "widget-" + this.id + "-" + field });
+    }
+
+    onEndEditing (field) {
+        this.socket.emit('stopEditInput', { widgetId: this.id, field, elementId: "widget-" + this.id + "-" + field });
     }
 }

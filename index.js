@@ -233,16 +233,16 @@ io.on('connection', function (socket) {
     });
   });
 
-  socket.on('startEditInput', (el) => {
-    user.editingElementId = el.elementId;
-    rooms[room].lockedElementIds.push(el.elementId);
-    socket.broadcast.to(room).emit('startEditInput', {elementId: el.elementId});
+  socket.on('startEditInput', (data) => {
+    user.editingElementId = data.elementId;
+    rooms[room].lockedElementIds.push(data.elementId);
+    socket.broadcast.to(room).emit('startEditInput', data);
   });
 
-  socket.on('stopEditInput', (el) => {
+  socket.on('stopEditInput', (data) => {
     user.editingElementId = null;
-    rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(el.elementId);
-    socket.broadcast.to(room).emit('stopEditInput', {elementId: el.elementId});
+    rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(data.elementId);
+    socket.broadcast.to(room).emit('stopEditInput', data);
   });
 
   socket.on('disconnect', (data) => {

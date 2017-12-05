@@ -1,5 +1,6 @@
 import {extendObservable} from "mobx";
 import Widget from "./Widget";
+import ChecklistItem from "./ChecklistItem";
 
 export default class ChecklistWidget extends Widget {
     kind = "checklist";
@@ -19,7 +20,9 @@ export default class ChecklistWidget extends Widget {
 
         this.socket.on('updateTask', (data) => {
             const foundTask = this.findTask(data.task.id);
-            foundTask[data.updateField] = data.task[data.updateField];
+            if (foundTask) {
+                foundTask[data.updateField] = data.task[data.updateField];
+            }
         });
 
         this.socket.on('deleteTask', (data) => {
@@ -41,45 +44,40 @@ export default class ChecklistWidget extends Widget {
         });
     }
 
-    disableItem (id) {
-        this.findTask(id).disabled = true;
+    lock (data) {
+        if (data.taskId) {
+            this.lockItem(data.taskId);
+            return;
+        }
+
+        Widget.prototype.lock.call(this, data);
+    }
+
+    unlock (data) {
+        if (data.taskId) {
+            this.unlockItem(data.taskId);
+            return;
+        }
+
+        Widget.prototype.unlock.call(this, data);
+    }
+
+    lockItem (id) {
+        const foundTask = this.findTask(id);
+        if (foundTask) {
+            foundTask.lock();
+        }
+    }
+
+    unlockItem (id) {
+        const foundTask = this.findTask(id);
+        if (foundTask) {
+            foundTask.unlock();
+        }
     }
     
     addTask () {
         this.socket.emit('addWidgetTask', {widgetId: this.id});
     }
     
-}
-
-class ChecklistItem {
-    id = "";
-
-    constructor (socket, widgetId, id, description, completed) {
-        extendObservable(this, {
-            description: "",
-            completed: false,
-            disabled: false,
-        })
-
-        this.socket = socket;
-        this.id = id;
-        this.widgetId = widgetId;
-        this.description = description;
-        this.completed = completed;
-    }
-
-    update (field, value) {
-        this.socket.emit('updateTask', {
-            widgetId: this.widgetId,
-            taskId: this.id,
-            updateField: field,
-            value 
-        });
-
-        this[field] = value;
-    }
-
-    delete () {
-        this.socket.emit('deleteTask', {widgetId: this.widgetId, taskId: this.id});
-    }
 }

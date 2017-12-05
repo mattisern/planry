@@ -3,14 +3,18 @@ import {observer} from 'mobx-react';
 
 const WidgetHeader = observer(class WidgetHeader extends React.Component {
     render() {
+        const isDisabled = this.props.widget.isDisabled("name");
+
         return (
             <div className="widget-header">
                 <input type="text"
-                    className="editable-header h2"
-                    name="name"
+                    className={"editable-header h2 " + (isDisabled ? "notify-edit" : "")}
                     placeholder="New todo widget"
                     value={this.props.widget.name}
+                    disabled={isDisabled}
                     onChange={(e) => this.props.widget.update("name", e.target.value)}
+                    onFocus={(e) => this.props.widget.onStartEditing("name")}
+                    onBlur={(e) => this.props.widget.onEndEditing("name")}
                 />
             </div>
         );

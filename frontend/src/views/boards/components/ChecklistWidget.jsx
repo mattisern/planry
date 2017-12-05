@@ -7,21 +7,24 @@ import WidgetHeader from "./WidgetHeader";
 
 const Task = observer(class Task extends React.Component {
     render () {
+        const isDisabled = this.props.task.disabled;
+
         return (
             <li className="list-group-item d-flex justify-content-between align-items-center">
                 <input
                     type="checkbox"
-                    name="completed"
                     checked={this.props.task.completed}
                     onChange={(e) => this.props.task.update("completed", e.target.checked)}
                 />
                 <input
                     type="text"
-                    className="editable-label"
-                    name="description"
+                    className={"editable-label " + (isDisabled ? "notify-edit" : "")}
+                    disabled={isDisabled}
                     placeholder="New Task"
                     value={this.props.task.description}
                     onChange={(e) => this.props.task.update("description", e.target.value)}
+                    onFocus={(e) => this.props.task.onStartEditing("description")}
+                    onBlur={(e) => this.props.task.onEndEditing("description")}
                 />
                 <span className="clickable delete-task" onClick={() => this.props.task.delete()}>x</span>
             </li>
