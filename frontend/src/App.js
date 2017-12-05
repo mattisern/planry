@@ -1,8 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
-import "./bootstrap.min.css";
-import "./App.css";
+import "./style/bootstrap.min.css";
+import "./style/App.css";
 
 import Board from "./views/boards/Board";
 
