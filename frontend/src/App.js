@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 
 import "./style/bootstrap.min.css";
 import "./style/App.css";
@@ -11,7 +11,12 @@ const App = observer(class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <Route path='/:boardId?' component={Board}/>
+                <Switch>                    
+                    <Route path='/board/:boardId?' component={Board}/>
+                    <Route path="/" render={() => (
+                        <Redirect to="/board"/>
+                    )}/>
+                </Switch>
             </BrowserRouter>
         );
     }

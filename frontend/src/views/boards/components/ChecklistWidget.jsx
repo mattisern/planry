@@ -11,11 +11,14 @@ const Task = observer(class Task extends React.Component {
 
         return (
             <li className="list-group-item d-flex justify-content-between align-items-center">
-                <input
-                    type="checkbox"
-                    checked={this.props.task.completed}
-                    onChange={(e) => this.props.task.update("completed", e.target.checked)}
-                />
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={this.props.task.completed}
+                        onChange={(e) => this.props.task.update("completed", e.target.checked)}
+                    />
+                    <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THIS */}
+                </label>
                 <input
                     type="text"
                     className={"editable-label " + (isDisabled ? "notify-edit" : "")}

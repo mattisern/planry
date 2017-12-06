@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import {reaction} from "mobx";
+import {when} from "mobx";
 
 import Main from "../../containers/Main";
 import Loading from "../../components/Loading";
@@ -41,11 +41,11 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
         super(props);
         this.board = boardStore.get(props.match.params.boardId);
 
-        if (!props.match.params.boardId) {
-            reaction(
+        if (!this.board.identifier && !props.match.params.boardId) {
+            when(
                 () => this.board.identifier,
                 () => {
-                    props.history.go("/" + this.board.identifier)
+                    props.history.push("/board/" + this.board.identifier)
                 }
             )
         }
