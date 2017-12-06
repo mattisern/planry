@@ -255,6 +255,23 @@ p.footer {
     box-shadow: 0 0 0 #ffffff;
 }
 
+.widget-add {
+  display: flex;
+  flex-direction: column;
+  height: 640px;
+}
+
+.widget-add > * {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-add > * + * {
+  border-top: 2px dashed #bfbfbf;
+}
+
 @media only screen and (min-width: 500px) {
   .widgets-container {
     width: 400px;

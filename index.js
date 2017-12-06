@@ -164,7 +164,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('addWidgetTask', (data) => {
-    let defaultTask = { id: uuid(), description: 'New Task', completed: false};
+    let defaultTask = { id: uuid(), description: '', completed: false};
 
     models.widget.findOne({where: {id: data.widgetId}}).then(widget => {
       //sequelize is a little wierd when manipulating json. Clone array and insert to force update

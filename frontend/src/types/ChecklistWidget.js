@@ -77,6 +77,7 @@ export default class ChecklistWidget extends Widget {
     }
     
     addTask () {
+        this.didAdd = true;
         this.socket.emit('addWidgetTask', {widgetId: this.id});
     }
     

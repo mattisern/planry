@@ -6,6 +6,19 @@ import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
 
 const Task = observer(class Task extends React.Component {
+    handleKeyUp = (e) => {
+        if (e.key.toLowerCase() === "enter") {
+            this.props.widget.addTask();
+        }
+    }
+
+    componentDidMount () {
+        if (this.props.widget.didAdd) {
+            this.input.focus();
+            this.props.widget.didAdd = false;
+        }
+    }
+
     render () {
         const isDisabled = this.props.task.disabled;
 
@@ -20,6 +33,7 @@ const Task = observer(class Task extends React.Component {
                     <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THIS */}
                 </label>
                 <input
+                    ref={(i) => this.input = i}
                     type="text"
                     className={"editable-label " + (isDisabled ? "notify-edit" : "")}
                     disabled={isDisabled}
@@ -28,6 +42,7 @@ const Task = observer(class Task extends React.Component {
                     onChange={(e) => this.props.task.update("description", e.target.value)}
                     onFocus={(e) => this.props.task.onStartEditing("description")}
                     onBlur={(e) => this.props.task.onEndEditing("description")}
+                    onKeyUp={this.handleKeyUp}
                 />
                 <span className="clickable delete-task" onClick={() => this.props.task.delete()}>x</span>
             </li>
@@ -41,7 +56,7 @@ const Tasks = observer(class Tasks extends React.Component {
             <ul id="tasks" className="list-group widget-content">
                 {
                     this.props.widget.tasks.map((task) => {
-                        return <Task key={task.id} task={task} />
+                        return <Task key={task.id} widget={this.props.widget} task={task} />
                     })
                 }
             </ul>
