@@ -52,9 +52,18 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
     }
 
     render() {
+        let content;
+        if (this.board.isError) {
+            content = <div className="error">Something went while trying to fetch your project</div>;
+        } else if (this.board.isLoading) {
+            content = <Loading />
+        } else {
+            content = <Board board={this.board} />
+        }
+
         return (
             <Main>
-                {this.board.isLoading ? <Loading /> : <Board board={this.board} />}
+                {content}
             </Main>
         );
     }

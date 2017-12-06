@@ -12,6 +12,7 @@ class BoardStore {
             id: "",
             identifier: "",
             isLoading: false,
+            isError: false,
             widgets: [],
             name: "",
             disabled: false
@@ -106,10 +107,13 @@ class BoardStore {
         }
 
         this.isLoading = true;
+        this.isError = false;
         
         client.get("/boards/" + uuid).then((res) => {
             this.isLoading = false;
             return this.parseBackend(res)
+        }).catch(() => {
+            this.isError = true;
         });
 
         return this;
