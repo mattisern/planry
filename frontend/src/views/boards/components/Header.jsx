@@ -14,7 +14,7 @@ const Header = observer(class Header extends React.Component {
                             disabled={isDisabled}
                             type="text"
                             placeholder="Your project name"
-                            value={this.props.board.name}
+                            value={this.props.board.name ? this.props.board.name : ""}
                             onChange={(e) => this.props.board.updateTitle(e.target.value)}
                             onFocus={(e) => this.props.board.onStartEditing("title")}
                             onBlur={(e) => this.props.board.onEndEditing("title")}

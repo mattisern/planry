@@ -9,6 +9,8 @@ import socket from "../socket";
 class BoardStore {
     constructor () {
         extendObservable(this, {
+            id: "",
+            identifier: "",
             isLoading: false,
             widgets: [],
             name: "",
@@ -100,8 +102,7 @@ class BoardStore {
 
     get (uuid) {
         if (!uuid) {
-            this.create();
-            return;
+            return this.create();
         }
 
         this.isLoading = true;
@@ -115,10 +116,10 @@ class BoardStore {
     }
 
     create () {
-        this.isLoading.set(true);
+        this.isLoading = true;
         
         client.post("/boards").then((res) => {
-            this.isLoading.set(false);
+            this.isLoading = false;
             return this.parseBackend(res)
         });
 
@@ -134,9 +135,11 @@ class BoardStore {
         
         this.setup();
 
-        data.widgets.forEach((widget) => {
-            this.widgets.push(this.createWidget(widget));
-        });
+        if (data.widgets) {
+            data.widgets.forEach((widget) => {
+                this.widgets.push(this.createWidget(widget));
+            });
+        }
     }
 
     createWidget (widget) {

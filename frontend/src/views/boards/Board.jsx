@@ -1,5 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
+import {reaction} from "mobx";
 
 import Main from "../../containers/Main";
 import Loading from "../../components/Loading";
@@ -35,7 +36,20 @@ const Board = observer(class Board extends React.Component {
 });
 
 const BoardContainer = observer(class BoardContainer extends React.Component {
-    board = boardStore.get("5dd19e91-5e2e-482e-96ea-eda45edcff01")
+
+    constructor (props) {
+        super(props);
+        this.board = boardStore.get(props.match.params.boardId);
+
+        if (!props.match.params.boardId) {
+            reaction(
+                () => this.board.identifier,
+                () => {
+                    props.history.go("/" + this.board.identifier)
+                }
+            )
+        }
+    }
 
     render() {
         return (
