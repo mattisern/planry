@@ -9,6 +9,8 @@ const ejs = require('ejs');
 const fs = require('fs');
 const models  = require('./app/db/models');
 
+const setupApi = require("./app/api");
+
 let app = express();
 let server = http.Server(app);
 let io = require('socket.io').listen(server);
@@ -17,6 +19,14 @@ let io = require('socket.io').listen(server);
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
+
+if (process.env.NODE_ENV !== "production") {
+  app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+  });
+}
 
 //routes TODO:extract
 app.get('/', (req, res) => res.redirect('boards'))
@@ -27,7 +37,6 @@ app.get('/boards', (req, res) => {
 });
 
 app.get('/boards/:uuid', (req, res) => {
-
   models.board.findOne({include: [{model: models.widget}], where: { identifier: req.params.uuid },order: [[models.widget, 'id', 'asc']] }).then( board => {
     if (!board) {
       models.board.create({
@@ -39,8 +48,9 @@ app.get('/boards/:uuid', (req, res) => {
       res.render('pages/boards', {board: board});
     }
   });
-
 });
+
+setupApi(app);
 
 models.sequelize.sync().then(()=> {
   server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
@@ -76,18 +86,27 @@ io.on('connection', function (socket) {
   }
 
   socket.on('titleUpdated', (data) => {
+    let promise;
 
-    if (data.board.name !== data.title) {
+    if (Number.isInteger(data.board)) {
+      promise = models.board.findById(data.board).then((board) => {
+        data.board = board;
+        return board;
+      });
+    } else {
+      promise = Promise.resolve();
+    }
 
-      models.board.update(
-        { name: data.title},
-        { fields: ['name'], where: {identifier: data.board.identifier}, returning: true, plain: true}).then(board => {
-          if (board) {
+    promise.then(() => {
+      if (data.board.name !== data.title) {
+        models.board.update(
+          { name: data.title},
+          { fields: ['name'], where: {identifier: data.board.identifier}, returning: true, plain: true}).then(board => {
             socket.broadcast.to(room).emit('titleUpdated', board[1].dataValues);
           }
-        }
-      );
-    }
+        );
+      }
+    })
   });
 
   socket.on('addWidget', (data) => {
@@ -101,6 +120,7 @@ io.on('connection', function (socket) {
 
         widget.save().then( widget => {
           if (widget) {
+            // TODO REMOVE WHEN USING ONLY REACT
             ejs.renderFile(widget.getTemplateUrl(), {widget: widget}, {}, (err, str) => {
               if (err) {
                 console.log(err);
@@ -144,7 +164,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('addWidgetTask', (data) => {
-    let defaultTask = { id: uuid(), description: 'New Task', completed: false};
+    let defaultTask = { id: uuid(), description: '', completed: false};
 
     models.widget.findOne({where: {id: data.widgetId}}).then(widget => {
       //sequelize is a little wierd when manipulating json. Clone array and insert to force update
@@ -153,13 +173,18 @@ io.on('connection', function (socket) {
       widget.set('state.tasks', tasks);
 
       widget.save().then( widget => {
+        // TODO REMOVE WHEN USING ONLY REACT
         fs.readFile('views/partials/checklist-widget-tasks.ejs','utf-8', function(err, data) {
           if (err) {
               console.log(err);
           } else {
             let template = ejs.render(data, { widget: widget.dataValues });
-            socket.broadcast.to(room).emit('addWidgetTask', {widget: widget.dataValues, html: template});
-            socket.emit('addWidgetTask', {widget: widget.dataValues, html: template});
+            socket.broadcast.to(room).emit('addWidgetTask', {
+              widget: widget.dataValues, 
+              html: template,
+              task: defaultTask
+            });
+            socket.emit('addWidgetTask', {widget: widget.dataValues, html: template, task: defaultTask});
           }
         });
       });
@@ -212,16 +237,16 @@ io.on('connection', function (socket) {
     });
   });
 
-  socket.on('startEditInput', (el) => {
-    user.editingElementId = el.elementId;
-    rooms[room].lockedElementIds.push(el.elementId);
-    socket.broadcast.to(room).emit('startEditInput', {elementId: el.elementId});
+  socket.on('startEditInput', (data) => {
+    user.editingElementId = data.elementId;
+    rooms[room].lockedElementIds.push(data.elementId);
+    socket.broadcast.to(room).emit('startEditInput', data);
   });
 
-  socket.on('stopEditInput', (el) => {
+  socket.on('stopEditInput', (data) => {
     user.editingElementId = null;
-    rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(el.elementId);
-    socket.broadcast.to(room).emit('stopEditInput', {elementId: el.elementId});
+    rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(data.elementId);
+    socket.broadcast.to(room).emit('stopEditInput', data);
   });
 
   socket.on('disconnect', (data) => {
