@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import {when} from "mobx";
+import {reaction} from "mobx";
 
 import Main from "../../containers/Main";
 import Loading from "../../components/Loading";
@@ -36,19 +36,19 @@ const Board = observer(class Board extends React.Component {
 });
 
 const BoardContainer = observer(class BoardContainer extends React.Component {
-
     constructor (props) {
         super(props);
-        this.board = boardStore.get(props.match.params.boardId);
 
-        if (!this.board.identifier && !props.match.params.boardId) {
-            when(
-                () => this.board.identifier,
-                () => {
-                    props.history.push("/boards/" + this.board.identifier)
-                }
-            )
-        }
+        const boardId = props.match.params.boardId || window.localStorage.getItem("rememberedBoardIdentifier");
+
+        this.board = boardStore.get(boardId);
+
+        reaction(
+            () => this.board.identifier,
+            () => {
+                props.history.push("/boards/" + this.board.identifier)
+            }
+        )
     }
 
     render() {

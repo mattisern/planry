@@ -1,6 +1,9 @@
 import React from 'react';
 import {observer} from "mobx-react";
 
+import RememberBoard from "./RememberBoard";
+import CreateBoard from "./CreateBoard";
+
 const Header = observer(class Header extends React.Component {
     render() {
         const isDisabled = this.props.board.disabled;
@@ -20,6 +23,7 @@ const Header = observer(class Header extends React.Component {
                             onBlur={(e) => this.props.board.onEndEditing("title")}
                         />
                         <p className="subheader">Share the URL with your friends and start collaborating!</p>
+                        <p><RememberBoard board={this.props.board} /> <CreateBoard /></p>
                     </div>
                 </div>
             </div>

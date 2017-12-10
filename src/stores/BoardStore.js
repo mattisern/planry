@@ -120,6 +120,8 @@ class BoardStore {
     }
 
     create () {
+        this.reset();
+
         this.isLoading = true;
         
         client.post("/boards").then((res) => {
@@ -128,6 +130,16 @@ class BoardStore {
         });
 
         return this;
+    }
+
+    reset () {
+        this.id = "";
+        this.identifier = "";
+        this.isLoading = false;
+        this.isError = false;
+        this.widgets = [];
+        this.name = "";
+        this.disabled = false;
     }
 
     parseBackend (res) {
