@@ -10,6 +10,10 @@ const RememberBoard = observer(class RememberBoard extends React.Component {
     }
 
     render() {
+        if (process.env.NODE_ENV === "production") {
+            return null;
+        }
+
         return <button className="clickable btn btn-link" type="button" onClick={this.handleClick}>Remember board</button>;
     }
 })

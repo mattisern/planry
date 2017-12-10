@@ -30,7 +30,7 @@ const Task = observer(class Task extends React.Component {
                         checked={this.props.task.completed}
                         onChange={(e) => this.props.task.update("completed", e.target.checked)}
                     />
-                    <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THIS */}
+                    <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THE SPAN TO LOOK LIKE A CHECKBOX. input + span {} AND input:checked + span {} */}
                 </label>
                 <input
                     ref={(i) => this.input = i}
