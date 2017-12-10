@@ -15,13 +15,16 @@ let server = http.Server(app);
 let io = require('socket.io').listen(server);
 
 //config/setup
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'build')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+
+console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV !== "production") {
   app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "http://localhost:5000");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
   });
