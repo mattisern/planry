@@ -11,10 +11,10 @@ const App = observer(class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <Switch>                    
-                    <Route path='/board/:boardId?' component={Board}/>
+                <Switch>
+                    <Route path='/boards/:boardId?' component={Board}/>
                     <Route path="/" render={() => (
-                        <Redirect to="/board"/>
+                        <Redirect to="/boards"/>
                     )}/>
                 </Switch>
             </BrowserRouter>
