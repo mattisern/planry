@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
       let boardId = data.boardId;
       let type = data.type === 'text' ? 1 : data.type === 'checklist' ? 2 : null;
 
-      if (models.wiet.getAllowedTypes().includes(type)) {
+      if (models.widget.getAllowedTypes().includes(type)) {
 
         let widget = models.widget.build({type: type, boardId: boardId});
         widget.state = widget.getDefaultState();
