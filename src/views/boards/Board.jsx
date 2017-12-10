@@ -42,10 +42,12 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
         this.board = boardStore.get(props.match.params.boardId);
 
         if (!this.board.identifier && !props.match.params.boardId) {
+            console.log("JAHA?")
             when(
                 () => this.board.identifier,
                 () => {
-                    props.history.push("/board/" + this.board.identifier)
+                    console.log("MHM")
+                    props.history.push("/boards/" + this.board.identifier)
                 }
             )
         }
