@@ -42,11 +42,9 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
         this.board = boardStore.get(props.match.params.boardId);
 
         if (!this.board.identifier && !props.match.params.boardId) {
-            console.log("JAHA?")
             when(
                 () => this.board.identifier,
                 () => {
-                    console.log("MHM")
                     props.history.push("/boards/" + this.board.identifier)
                 }
             )
@@ -56,7 +54,7 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
     render() {
         let content;
         if (this.board.isError) {
-            content = <div className="error">Something went while trying to fetch your project</div>;
+            content = <div className="error">Something went wrong while trying to fetch your project</div>;
         } else if (this.board.isLoading) {
             content = <Loading />
         } else {
