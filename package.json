@@ -11,7 +11,7 @@
     "dev": "concurrently --kill-others \"npm run start\" \"npm run frontend-start\"",
     "test": "node test.js",
     "migrate": "cd app/db/ && ../../node_modules/.bin/sequelize db:migrate",
-    "heroku-postbuild": "cd app/db/ && ../../node_modules/.bin/sequelize db:migrate",
+    "heroku-postbuild": "react-scripts build && cd app/db/ && ../../node_modules/.bin/sequelize db:migrate",
     "frontend-start": "react-scripts start",
     "frontend-build": "react-scripts build",
     "frontend-test": "react-scripts test --env=jsdom",
