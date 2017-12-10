@@ -4,7 +4,6 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const uuid = require('uuid/v4');
 const http = require('http');
-// const url = require('url');
 const ejs = require('ejs');
 const fs = require('fs');
 const models  = require('./app/db/models');
@@ -29,26 +28,12 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 //routes TODO:extract
-app.get('/', (req, res) => res.redirect('boards'))
+app.use('/', express.static(path.join(__dirname+'/build/')))
 
-app.get('/boards', (req, res) => {
-	let newUuid = uuid();
-	res.redirect('boards/' + newUuid)
-});
+app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/build/index.html')))
+app.get('/board/:uuid', (req, res) => res.sendFile(path.join(__dirname+'/build/index.html')))
+app.get('/board', (req, res) => res.sendFile(path.join(__dirname+'/build/index.html')))
 
-app.get('/boards/:uuid', (req, res) => {
-  models.board.findOne({include: [{model: models.widget}], where: { identifier: req.params.uuid },order: [[models.widget, 'id', 'asc']] }).then( board => {
-    if (!board) {
-      models.board.create({
-        identifier: req.params.uuid
-      }).then(board => {
-        res.render('pages/boards', {board: board});
-      })
-    } else {
-      res.render('pages/boards', {board: board});
-    }
-  });
-});
 
 setupApi(app);
 
@@ -113,7 +98,7 @@ io.on('connection', function (socket) {
       let boardId = data.boardId;
       let type = data.type === 'text' ? 1 : data.type === 'checklist' ? 2 : null;
 
-      if (models.widget.getAllowedTypes().includes(type)) {
+      if (models.wiet.getAllowedTypes().includes(type)) {
 
         let widget = models.widget.build({type: type, boardId: boardId});
         widget.state = widget.getDefaultState();
@@ -180,7 +165,7 @@ io.on('connection', function (socket) {
           } else {
             let template = ejs.render(data, { widget: widget.dataValues });
             socket.broadcast.to(room).emit('addWidgetTask', {
-              widget: widget.dataValues, 
+              widget: widget.dataValues,
               html: template,
               task: defaultTask
             });
