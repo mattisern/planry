@@ -22,6 +22,7 @@ h2 {
   font-size: 36px;
 }
 
+.notify-edit .DraftEditor-root,
 input.notify-edit,
 textarea.notify-edit {
   background-color: #b556308a;
@@ -84,7 +85,8 @@ li.finished {
   text-align: center;
 }
 
-.text-widget > textarea {
+.text-widget > textarea,
+.text-widget > .DraftEditor-root {
   display: block;
   width: 100%;
   border: 0;
@@ -93,7 +95,29 @@ li.finished {
   color: #444;
   font-size: 15px;
   line-height: 24px;
+  padding: 0 20px;
+  max-height: 541px;
+  overflow: hidden;
+  overflow-y: auto;
 }
+
+.text-widget > .DraftEditor-root ul {
+  list-style: disc;
+}
+
+.text-widget > .DraftEditor-root h1,
+.text-widget > .DraftEditor-root h2,
+.text-widget > .DraftEditor-root h3,
+.text-widget > .DraftEditor-root h4,
+.text-widget > .DraftEditor-root h5,
+.text-widget > .DraftEditor-root h6 { color: #444; font-weight: bold; }
+
+.text-widget > .DraftEditor-root h1 { font-size: 26px; }
+.text-widget > .DraftEditor-root h2 { font-size: 22px; }
+.text-widget > .DraftEditor-root h3 { font-size: 20px; }
+.text-widget > .DraftEditor-root h4 { font-size: 16px; }
+.text-widget > .DraftEditor-root h5 { font-size: 14px; }
+.text-widget > .DraftEditor-root h6 { font-size: 12px; }
 
 .checklist-widget .list-group-item {
   border: 0;

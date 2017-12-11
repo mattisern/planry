@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 
         switch (this.type) {
             case 1 :
-                defaultState = {name: "", text: ""};
+                defaultState = {name: "", text: "", draftjsText: {}};
                 break;
             case 2 :
                 defaultState = {name: "", tasks: [{ id: uuid(), description: '', completed: false}]};

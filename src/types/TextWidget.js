@@ -4,13 +4,15 @@ import Widget from "./Widget";
 export default class TextWidget extends Widget {
     kind = "text";
 
-    constructor (socket, id, name, text) {     
+    constructor (socket, id, name, text, richText) {     
         super(socket, id, name);
 
         extendObservable(this, {
-            text: ""
+            text: "",
+            richText: {entityMap: {}, blocks: []}
         });
 
-        this.text = text;
+        if (text) { this.text = text };
+        if (richText) { this.richText = richText };
     }
 }

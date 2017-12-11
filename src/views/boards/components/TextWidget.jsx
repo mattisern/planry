@@ -1,25 +1,69 @@
 import React from 'react';
 
+import {reaction, toJS} from "mobx";
 import {observer} from "mobx-react";
+
+import Editor, {createEditorStateWithText} from 'draft-js-plugins-editor';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
 import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
 
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+
 const TextWidget = observer(class TextWidget extends React.Component {
+    constructor (props) {
+        super(props);
+
+        let editorState;
+        if (props.widget.richText && props.widget.richText.blocks.length) {
+            editorState = EditorState.createWithContent(convertFromRaw(toJS(props.widget.richText)));
+        } else {
+            editorState = createEditorStateWithText(props.widget.text || "");
+        }
+
+        this.state = { 
+            editorState
+        };
+    }
+
+    componentDidMount () {
+        this.dispose = reaction(
+            () => this.props.widget.richText,
+            (text) => {
+                if (this.props.widget.isDisabled("text")) {
+                    this.setState({
+                        editorState: EditorState.createWithContent(convertFromRaw(text))
+                    })
+                }
+            }
+        )
+    }
+
+    componentWillUnmount () {
+        this.dispose();
+    }
+
     render() {
         const isDisabled = this.props.widget.isDisabled("text");
         
         return (
-            <div className="widget text-widget">                    
+            <div className={"widget text-widget "  + (isDisabled ? "notify-edit" : "")}>                    
                 <WidgetDelete widget={this.props.widget} />
                 <WidgetHeader widget={this.props.widget} />
-                
-                <textarea
-                    className={"widget-content " + (isDisabled ? "notify-edit" : "")}
-                    placeholder="Start typing here ..."
-                    disabled={isDisabled}
-                    value={this.props.widget.text}
-                    onChange={(e) => this.props.widget.update("text", e.target.value)}
+
+                <Editor 
+                    editorState={this.state.editorState} 
+                    onChange={(editorState) => {
+                        this.setState({editorState});
+                        const text = editorState.getCurrentContent().getPlainText();
+                        const richText = convertToRaw(editorState.getCurrentContent());
+
+                        this.props.widget.update("text", text);
+                        this.props.widget.update("richText", richText);
+                    }}
+                    plugins={[createMarkdownShortcutsPlugin()]}
+                    readOnly={isDisabled}               
                     onFocus={(e) => this.props.widget.onStartEditing("text")}
                     onBlur={(e) => this.props.widget.onEndEditing("text")}
                 />
