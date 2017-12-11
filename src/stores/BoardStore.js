@@ -63,6 +63,7 @@ class BoardStore {
         this.socket.on('updateWidget', (data) => {
             const foundWidget = this.findWidget(data.widgetId);
             if (foundWidget) {
+                console.log(data)
                 foundWidget[data.updateField] = data.newState[data.updateField];
             }
         });
@@ -161,7 +162,7 @@ class BoardStore {
     createWidget (widget) {
         switch(widget.type) {
             case 1:
-                return new TextWidget(this.socket, widget.id, widget.state.name, widget.state.text);
+                return new TextWidget(this.socket, widget.id, widget.state.name, widget.state.text, widget.state.richText);
             case 2:
                 return new ChecklistWidget(this.socket, widget.id, widget.state.name, widget.state.tasks);
             default:
