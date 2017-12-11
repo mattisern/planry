@@ -16,6 +16,7 @@ let io = require('socket.io').listen(server);
 
 //config/setup
 app.use(express.static(path.join(__dirname, 'build')))
+app.use(sslRedirect());
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
