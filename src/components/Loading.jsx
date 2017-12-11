@@ -6,7 +6,6 @@ const Loading = observer(class Loading extends React.Component {
     render() {
         return (
             <div className="loading">
-                Loading...
             </div>
         );
     }
