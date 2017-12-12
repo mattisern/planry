@@ -23,20 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         ];
     }
 
-    Widget.prototype.getTemplateUrl = function () {
-        let templateUrl;
-
-        switch (this.type) {
-            case 1 :
-                templateUrl = 'views/partials/text-widget.ejs';
-                break;
-            case 2 :
-                templateUrl = 'views/partials/checklist-widget.ejs';
-        }
-
-        return templateUrl;
-    }
-
     Widget.prototype.getDefaultState = function () {
         let defaultState;
 
