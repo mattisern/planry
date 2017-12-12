@@ -4,6 +4,7 @@ import {reaction} from "mobx";
 import {observer} from "mobx-react";
 
 import Editor, {createEditorStateWithText} from 'draft-js-plugins-editor';
+import {getDefaultKeyBinding} from 'draft-js';
 
 import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
@@ -18,10 +19,20 @@ const Task = observer(class Task extends React.Component {
         };
     }
 
-    handleKeyUp = (e) => {
+    keyBindings = (e) => {
         if (e.key.toLowerCase() === "enter") {
-            this.props.widget.addTask();
+          return 'enter';
         }
+        
+        return getDefaultKeyBinding(e);
+    }
+
+    handleKeyCommand = (command) => {
+        if (command === 'enter') {
+            this.props.widget.addTask();
+            return 'handled';
+        }
+        return 'not-handled';
     }
 
     componentDidMount () {
@@ -73,6 +84,8 @@ const Task = observer(class Task extends React.Component {
                         readOnly={isDisabled}               
                         onFocus={() => this.props.task.onStartEditing("description")}
                         onBlur={() => this.props.task.onEndEditing("description")}
+                        handleKeyCommand={this.handleKeyCommand}
+                        keyBindingFn={this.keyBindings}
                     />
                 </div>
                 <span className="clickable delete-task" onClick={() => this.props.task.delete()}>x</span>
