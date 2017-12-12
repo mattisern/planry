@@ -6,6 +6,8 @@ import {observer} from "mobx-react";
 import Editor, {createEditorStateWithText} from 'draft-js-plugins-editor';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
+import "draft-js/dist/Draft.css"
+
 import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
 
@@ -63,6 +65,7 @@ const TextWidget = observer(class TextWidget extends React.Component {
                         this.props.widget.update("richText", richText);
                     }}
                     plugins={[createMarkdownShortcutsPlugin()]}
+                    placeholder="Start writing here..."
                     readOnly={isDisabled}               
                     onFocus={(e) => this.props.widget.onStartEditing("text")}
                     onBlur={(e) => this.props.widget.onEndEditing("text")}
