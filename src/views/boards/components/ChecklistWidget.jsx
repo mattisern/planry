@@ -1,11 +1,23 @@
 import React from 'react';
 
-import {observer} from "mobx-react"
+import {reaction} from "mobx";
+import {observer} from "mobx-react";
+
+import Editor, {createEditorStateWithText} from 'draft-js-plugins-editor';
 
 import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
 
 const Task = observer(class Task extends React.Component {
+    constructor (props) {
+        super(props);
+
+        console.log(props.task)
+        this.state = { 
+            editorState: createEditorStateWithText(props.task.description || "")
+        };
+    }
+
     handleKeyUp = (e) => {
         if (e.key.toLowerCase() === "enter") {
             this.props.widget.addTask();
@@ -17,6 +29,21 @@ const Task = observer(class Task extends React.Component {
             this.input.focus();
             this.props.widget.didAdd = false;
         }
+
+        this.dispose = reaction(
+            () => this.props.task.description,
+            (text) => {
+                if (this.props.widget.isDisabled("description")) {
+                    this.setState({
+                        editorState: createEditorStateWithText(this.props.task.description || "")
+                    })
+                }
+            }
+        )
+    }
+
+    componentWillUnmount () {
+        this.dispose();
     }
 
     render () {
@@ -24,7 +51,7 @@ const Task = observer(class Task extends React.Component {
 
         return (
             <li className="list-group-item d-flex justify-content-between align-items-center">
-                <label>
+                <label className="checkbox-label">
                     <input
                         type="checkbox"
                         checked={this.props.task.completed}
@@ -32,18 +59,22 @@ const Task = observer(class Task extends React.Component {
                     />
                     <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THE SPAN TO LOOK LIKE A CHECKBOX. input + span {} AND input:checked + span {} */}
                 </label>
-                <input
-                    ref={(i) => this.input = i}
-                    type="text"
-                    className={"editable-label " + (isDisabled ? "notify-edit" : "")}
-                    disabled={isDisabled}
-                    placeholder="New Task"
-                    value={this.props.task.description}
-                    onChange={(e) => this.props.task.update("description", e.target.value)}
-                    onFocus={(e) => this.props.task.onStartEditing("description")}
-                    onBlur={(e) => this.props.task.onEndEditing("description")}
-                    onKeyUp={this.handleKeyUp}
-                />
+                <div className={"editable-label " + (isDisabled ? "notify-edit" : "")}>
+                    <Editor 
+                        ref={(i) => this.input = i}
+                        editorState={this.state.editorState} 
+                        onChange={(editorState) => {
+                            this.setState({editorState});
+                            const text = editorState.getCurrentContent().getPlainText();
+
+                            this.props.task.update("description", text);
+                        }}
+                        placeholder="New task"
+                        readOnly={isDisabled}               
+                        onFocus={() => this.props.task.onStartEditing("description")}
+                        onBlur={() => this.props.task.onEndEditing("description")}
+                    />
+                </div>
                 <span className="clickable delete-task" onClick={() => this.props.task.delete()}>x</span>
             </li>
         )

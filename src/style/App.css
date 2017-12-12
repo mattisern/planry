@@ -118,6 +118,14 @@ li.finished {
 
 .checklist-widget .list-group-item {
   border: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.checklist-widget .list-group-item .checkbox-label {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .editable-label {
