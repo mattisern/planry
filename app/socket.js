@@ -1,10 +1,11 @@
 const models  = require('./db/models');
 const uuid = require('uuid/v4');
 
+let rooms = {};
+
 module.exports = function setupSocket (io) {
-    let rooms = {};
     
-    Array.prototype.remove = () => {
+    Array.prototype.remove = function() {
         var what, a = arguments, L = a.length, ax;
         while (L && this.length) {
             what = a[--L];
@@ -17,7 +18,7 @@ module.exports = function setupSocket (io) {
     
     //event handling with socket iox
     io.on('connection', (socket) => {
-      const room = socket.handshake.query.room;
+      let room = socket.handshake.query.room;
       let user = {};
     
       socket.join(room);
@@ -162,13 +163,17 @@ module.exports = function setupSocket (io) {
     
       socket.on('startEditInput', (data) => {
         user.editingElementId = data.elementId;
-        rooms[room].lockedElementIds.push(data.elementId);
+        if (rooms[room]) {
+          rooms[room].lockedElementIds.push(data.elementId);
+        }
         socket.broadcast.to(room).emit('startEditInput', data);
       });
     
       socket.on('stopEditInput', (data) => {
         user.editingElementId = null;
-        rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(data.elementId);
+        if (rooms[room]) {
+          rooms[room].lockedElementIds = rooms[room].lockedElementIds.remove(data.elementId);
+        }
         socket.broadcast.to(room).emit('stopEditInput', data);
       });
     

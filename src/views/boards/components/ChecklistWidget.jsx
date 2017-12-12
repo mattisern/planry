@@ -32,9 +32,9 @@ const Task = observer(class Task extends React.Component {
             case "enter":
                 this.props.widget.addTask();
                 return 'handled';
+            default:
+                return 'not-handled';
         }
-        
-        return 'not-handled';
     }
 
     componentDidMount () {
