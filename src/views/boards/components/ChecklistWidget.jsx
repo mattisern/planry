@@ -28,10 +28,12 @@ const Task = observer(class Task extends React.Component {
     }
 
     handleKeyCommand = (command) => {
-        if (command === 'enter') {
-            this.props.widget.addTask();
-            return 'handled';
+        switch (command) {
+            case "enter":
+                this.props.widget.addTask();
+                return 'handled';
         }
+        
         return 'not-handled';
     }
 
