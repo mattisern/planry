@@ -63,7 +63,6 @@ class BoardStore {
         this.socket.on('updateWidget', (data) => {
             const foundWidget = this.findWidget(data.widgetId);
             if (foundWidget) {
-                console.log(data)
                 foundWidget[data.updateField] = data.newState[data.updateField];
             }
         });
