@@ -28,6 +28,17 @@ textarea.notify-edit {
   background-color: #b556308a;
 }
 
+.create-board {
+  text-align: right;
+  margin-bottom: -20px;
+}
+
+.create-board button.clickable.btn.btn-link {
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  color: #999999;
+  font-size: 15px;
+}
+
 .subheader {
   color: #999999;
   margin: 0;
@@ -55,6 +66,11 @@ li {
 li.finished {
   color: #ddd;
   text-decoration: line-through;
+}
+
+.widget-add-button span {
+  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
+  color: #00aeef;
 }
 
 .widgets-container {

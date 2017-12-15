@@ -9,7 +9,7 @@ const WidgetHeader = observer(class WidgetHeader extends React.Component {
             <div className="widget-header">
                 <input type="text"
                     className={"editable-header h2 " + (isDisabled ? "notify-edit" : "")}
-                    placeholder="New todo widget"
+                    placeholder="Header"
                     value={this.props.widget.name}
                     disabled={isDisabled}
                     onChange={(e) => this.props.widget.update("name", e.target.value)}

@@ -24,7 +24,7 @@ const TextWidget = observer(class TextWidget extends React.Component {
             editorState = createEditorStateWithText(props.widget.text || "");
         }
 
-        this.state = { 
+        this.state = {
             editorState
         };
     }
@@ -48,14 +48,14 @@ const TextWidget = observer(class TextWidget extends React.Component {
 
     render() {
         const isDisabled = this.props.widget.isDisabled("text");
-        
+
         return (
-            <div className={"widget text-widget "  + (isDisabled ? "notify-edit" : "")}>                    
+            <div className={"widget text-widget "  + (isDisabled ? "notify-edit" : "")}>
                 <WidgetDelete widget={this.props.widget} />
                 <WidgetHeader widget={this.props.widget} />
 
-                <Editor 
-                    editorState={this.state.editorState} 
+                <Editor
+                    editorState={this.state.editorState}
                     onChange={(editorState) => {
                         this.setState({editorState});
                         const text = editorState.getCurrentContent().getPlainText();
@@ -65,8 +65,8 @@ const TextWidget = observer(class TextWidget extends React.Component {
                         this.props.widget.update("richText", richText);
                     }}
                     plugins={[createMarkdownShortcutsPlugin()]}
-                    placeholder="Start writing here..."
-                    readOnly={isDisabled}               
+                    placeholder="Start writing here :)"
+                    readOnly={isDisabled}
                     onFocus={(e) => this.props.widget.onStartEditing("text")}
                     onBlur={(e) => this.props.widget.onEndEditing("text")}
                 />
