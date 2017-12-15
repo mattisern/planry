@@ -167,6 +167,7 @@ ul#tasks {
 .delete-task {
   color: #d8d7d2;
   font-size: 14px;
+  padding-bottom: 8px;
 }
 
 .delete-task:hover {
@@ -177,8 +178,8 @@ ul#tasks {
   float:right;
   color: #d8d7d2;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  font-size: 14px;
-  margin-right: 2px;
+  font-size: 18px;
+  margin-right: -2px;
   padding : 12px 20px 8px 0;
 }
 
