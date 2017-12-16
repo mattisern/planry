@@ -33,7 +33,7 @@ textarea.notify-edit {
   margin-bottom: -20px;
 }
 
-.create-board button.clickable.btn.btn-link {
+.create-board btn.btn-link {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   color: #999999;
   font-size: 15px;

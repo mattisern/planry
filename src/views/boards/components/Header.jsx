@@ -12,7 +12,7 @@ const Header = observer(class Header extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-12 create-board">
-                  <p><CreateBoard /></p>
+                  <CreateBoard />
                 </div>
               </div>
                 <div className="row">
