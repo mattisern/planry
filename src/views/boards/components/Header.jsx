@@ -9,10 +9,15 @@ const Header = observer(class Header extends React.Component {
         const isDisabled = this.props.board.disabled;
 
         return (
-            <div className="container text-center">
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-12 create-board">
+                  <CreateBoard />
+                </div>
+              </div>
                 <div className="row">
                     <div className="col-sm-12 text-center">
-                        <input 
+                        <input
                             className={"editable-header h1 " + (isDisabled ? "notify-edit" : "")}
                             disabled={isDisabled}
                             type="text"
@@ -23,7 +28,6 @@ const Header = observer(class Header extends React.Component {
                             onBlur={(e) => this.props.board.onEndEditing("title")}
                         />
                         <p className="subheader">Share the URL with your friends and start collaborating!</p>
-                        <p><RememberBoard board={this.props.board} /> <CreateBoard /></p>
                     </div>
                 </div>
             </div>

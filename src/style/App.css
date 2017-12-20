@@ -28,6 +28,17 @@ textarea.notify-edit {
   background-color: #b556308a;
 }
 
+.create-board {
+  text-align: right;
+  margin-bottom: -20px;
+}
+
+.create-board .btn.btn-link {
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
+  color: #999999;
+  font-size: 15px;
+}
+
 .subheader {
   color: #999999;
   margin: 0;
@@ -55,6 +66,11 @@ li {
 li.finished {
   color: #ddd;
   text-decoration: line-through;
+}
+
+.widget-add-button span {
+  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
+  color: #00aeef
 }
 
 .widgets-container {
@@ -107,14 +123,7 @@ li.finished {
 .text-widget > .DraftEditor-root h3,
 .text-widget > .DraftEditor-root h4,
 .text-widget > .DraftEditor-root h5,
-.text-widget > .DraftEditor-root h6 { color: #444; font-weight: bold; }
-
-.text-widget > .DraftEditor-root h1 { font-size: 26px; }
-.text-widget > .DraftEditor-root h2 { font-size: 22px; }
-.text-widget > .DraftEditor-root h3 { font-size: 20px; }
-.text-widget > .DraftEditor-root h4 { font-size: 16px; }
-.text-widget > .DraftEditor-root h5 { font-size: 14px; }
-.text-widget > .DraftEditor-root h6 { font-size: 12px; }
+.text-widget > .DraftEditor-root h6 { color: #444; font-weight: bold; font-size: 16px;}
 
 .checklist-widget .list-group-item {
   border: 0;
@@ -158,6 +167,7 @@ ul#tasks {
 .delete-task {
   color: #d8d7d2;
   font-size: 14px;
+  padding-bottom: 8px;
 }
 
 .delete-task:hover {
@@ -168,8 +178,8 @@ ul#tasks {
   float:right;
   color: #d8d7d2;
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
-  font-size: 14px;
-  margin-right: 2px;
+  font-size: 18px;
+  margin-right: -2px;
   padding : 12px 20px 8px 0;
 }
 
