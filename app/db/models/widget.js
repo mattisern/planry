@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
                 defaultState = {name: "", text: "", richText: {entityMap: {}, blocks: []}};
                 break;
             case 2 :
-                defaultState = {name: "", tasks: [{ id: uuid(), description: '', completed: false}]};
+                defaultState = {name: "", tasks: [{ id: uuid(), description: '', completed: false, ordinal: 99999999}]};
         }
 
         return defaultState;

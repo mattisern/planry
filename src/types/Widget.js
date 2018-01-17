@@ -26,16 +26,19 @@ export default class Widget {
     }
 
     lock (data) {
+        console.log("LOCK", data)
         this.disabled.push(data.field);
     }
     
     unlock (data) {
+        console.log("UNLOCK", data)
         this.disabled = this.disabled.filter((disabled) => {
             return disabled !== data.field;
         })
     }
 
     isDisabled (field) {
+        console.log("FIELD", field, this.disabled.slice())
         return this.disabled.includes(field);
     }
 

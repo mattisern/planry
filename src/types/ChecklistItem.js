@@ -3,11 +3,12 @@ import {extendObservable} from "mobx";
 export default class ChecklistItem {
     id = "";
 
-    constructor (socket, widgetId, id, description, completed) {
+    constructor (socket, widgetId, id, description, completed, ordinal) {
         extendObservable(this, {
             description: "",
             completed: false,
-            disabled: false
+            disabled: false,
+            ordinal: 0
         })
 
         this.socket = socket;
@@ -15,6 +16,7 @@ export default class ChecklistItem {
         this.widgetId = widgetId;
         this.description = description;
         this.completed = completed;
+        this.ordinal = ordinal;
     }
 
     update (field, value) {

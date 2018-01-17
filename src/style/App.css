@@ -128,13 +128,23 @@ li.finished {
 .checklist-widget .list-group-item {
   border: 0;
   position: relative;
-  padding-left: 20px;
+  padding-left: 40px;
 }
 
 .checklist-widget .list-group-item .checkbox-label {
   position: absolute;
   top: 0;
+  left: 20px;
+}
+
+.checklist-widget .list-group-item .drag-handle {
+  position: absolute;
+  top: 0;
   left: 0;
+  display: inline-block;
+  width: 20px;
+  line-height: 21px;
+  cursor: move;
 }
 
 .editable-label {
@@ -155,7 +165,7 @@ li.finished {
   font-size: 22px;
 }
 
-ul#tasks {
+ul.tasks {
   max-height: 455px;
   overflow: auto;
 }
@@ -168,6 +178,15 @@ ul#tasks {
   color: #d8d7d2;
   font-size: 14px;
   padding-bottom: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #f7f7f7;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
 }
 
 .delete-task:hover {

@@ -1,5 +1,6 @@
 const models  = require('./db/models');
 const uuid = require('uuid/v4');
+const {arrayMove} = require('react-sortable-hoc');
 
 let rooms = {};
 
@@ -97,7 +98,7 @@ module.exports = function setupSocket (io) {
       });
     
       socket.on('addWidgetTask', (data) => {
-        let defaultTask = { id: uuid(), description: '', completed: false};
+        let defaultTask = { id: uuid(), description: '', completed: false, ordinal: 999999};
     
         models.widget.findOne({where: {id: data.widgetId}}).then(widget => {
           //sequelize is a little wierd when manipulating json. Clone array and insert to force update
@@ -111,6 +112,21 @@ module.exports = function setupSocket (io) {
               task: defaultTask
             });
             socket.emit('addWidgetTask', { widget: widget.dataValues, task: defaultTask });
+          });
+        });
+      });
+    
+      socket.on('updateTasksOrdinal', (data) => {
+        models.widget.findOne({where: {id: data.widgetId}}).then(widget => {
+          const tasks = arrayMove(widget.state.tasks.slice(), data.oldIndex, data.newIndex);
+          widget.set('state.tasks', tasks);
+    
+          widget.save().then( widget => {
+            socket.broadcast.to(room).emit('updateTasksOrdinal', {
+              widget: widget.dataValues,
+              oldIndex: data.oldIndex,
+              newIndex: data.newIndex
+            });
           });
         });
       });
