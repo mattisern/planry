@@ -1,12 +1,12 @@
 const express = require('express');
 const models  = require('./db/models');
 const uuid = require('uuid/v4');
+const welcomeWidget = require("./welcomeWidget");
 
 module.exports = function setupApi (app) {
     const api = express();
 
     if (process.env.NODE_ENV !== "production") {
-        console.log("Allow origin apoi")
         api.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -17,9 +17,21 @@ module.exports = function setupApi (app) {
 
     // Create board
     api.post('/boards', (req, res) => {
+        let board;
         let newUuid = uuid();
          models.board.create({
             identifier: newUuid
+        }).then((b) => {
+            board = b;
+
+            return models.widget.create({
+                boardId: board.id,
+                type: 1,
+                state: welcomeWidget
+            });
+        }).then((widget) => {
+            board.dataValues.widgets = [widget];
+            return board;
         }).then((board) => {
             res.setHeader('Content-Type', 'application/json');
             res.send(board);
