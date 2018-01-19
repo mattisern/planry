@@ -143,11 +143,12 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 270px;
+  width: 250px;
   text-overflow: ellipsis;
   margin-right: 20px;
   padding: 0;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  margin-left: 14px;
 }
 
 .add-task {
@@ -309,6 +310,19 @@ p.footer {
 
 .widget-add > * + * {
   border-top: 2px dashed #bfbfbf;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:26px;
+    height:26px;
+    background:white;
+    border-radius:25px;
+    border:2px solid #e5e5e5;
+}
+input[type='checkbox']:checked {
+    background: #00aeef;
+    border:2px solid #00aeef;
 }
 
 @media only screen and (min-width: 500px) {
