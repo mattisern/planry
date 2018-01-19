@@ -1,10 +1,24 @@
+const isProduction = process.env.NODE_ENV === "production";
+
 const sslRedirect = require('heroku-ssl-redirect');
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 const http = require('http');
-const models  = require('./app/db/models');
+const fs = require('fs');
 
+let envPath = './.env';
+if (!isProduction) {
+  envPath = "./.env.local";
+
+  if (!fs.existsSync(envPath)) {
+    envPath = "./.env.development";
+  }
+}
+
+const dotenv = require('dotenv').config({path: envPath});
+
+const models  = require('./app/db/models');
 const setupApi = require("./app/api");
 const setupSocket = require("./app/socket");
 
@@ -16,10 +30,7 @@ const io = require('socket.io').listen(server);
 app.use(sslRedirect());
 app.use(express.static(path.join(__dirname, 'build')))
 
-console.log("NODE_ENV", process.env.NODE_ENV)
-
-if (process.env.NODE_ENV !== "production") {
-  console.log("Allow origin")
+if (!isProduction) {
   app.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
