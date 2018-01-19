@@ -129,6 +129,8 @@ li.finished {
   border: 0;
   position: relative;
   padding-left: 40px;
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 
 .checklist-widget .list-group-item .checkbox-label {
@@ -139,7 +141,7 @@ li.finished {
 
 .checklist-widget .list-group-item .drag-handle {
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
   display: inline-block;
   width: 20px;
@@ -153,11 +155,11 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 250px;
+  width: 230px;
   text-overflow: ellipsis;
+  padding-top: 1px;
   margin-right: 20px;
-  padding: 0;
-  margin-bottom: 4px;
+  margin-bottom: 0px;
   margin-left: 14px;
 }
 
@@ -180,7 +182,7 @@ ul.tasks {
   font-size: 14px;
   padding-bottom: 8px;
   position: absolute;
-  top: 0;
+  top: 1px;
   right: 0;
   background: #f7f7f7;
   height: 20px;
