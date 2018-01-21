@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import {reaction} from "mobx";
+import {reaction, when} from "mobx";
+import {withRouter} from "react-router-dom";
 
 import Main from "../../containers/Main";
 import Loading from "../../components/Loading";
@@ -11,8 +12,16 @@ import ChecklistWidget from "./components/ChecklistWidget"
 import WidgetAdd from "./components/WidgetAdd"
 
 import boardStore from "../../stores/BoardStore";
+import visitedStore from "../../stores/VisitedStore";
 
 const Board = observer(class Board extends React.Component {
+    componentDidMount () {
+        when(
+            () => this.props.board.identifier,
+            () => visitedStore.save({identifier: this.props.board.identifier, name: this.props.board.name})
+        );
+    }
+
     render () {
         return (
             <div>
@@ -39,16 +48,18 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
     constructor (props) {
         super(props);
 
-        const boardId = props.match.params.boardId || window.localStorage.getItem("rememberedBoardIdentifier");
+        const boardId = props.match.params.boardId;
 
         this.board = boardStore.get(boardId);
-
-        reaction(
-            () => this.board.identifier,
-            () => {
-                props.history.push("/boards/" + this.board.identifier)
-            }
-        )
+        
+        if (!boardId) {
+            reaction(
+                () => this.board.identifier,
+                () => {
+                    props.history.push("/boards/" + this.board.identifier)
+                }
+            )
+        }
     }
 
     render() {
@@ -69,4 +80,4 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
     }
 })
 
-export default BoardContainer;
+export default withRouter(BoardContainer);

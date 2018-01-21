@@ -6,6 +6,7 @@ import "./style/bootstrap.min.css";
 import "./style/App.css";
 
 import Board from "./views/boards/Board";
+import Start from "./views/start/Start";
 
 const App = observer(class App extends React.Component {
     render() {
@@ -13,9 +14,7 @@ const App = observer(class App extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route path='/boards/:boardId?' component={Board}/>
-                    <Route path="/" render={() => (
-                        <Redirect to="/boards"/>
-                    )}/>
+                    <Route path="/" component={Start} />
                 </Switch>
             </BrowserRouter>
         );
