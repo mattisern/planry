@@ -361,6 +361,10 @@ p.footer {
   border-top: 2px dashed #bfbfbf;
 }
 
+ul.list-of-boards {
+  padding-left: 0;
+}
+
 input[type='checkbox'] {
     -webkit-appearance:none;
     width:26px;

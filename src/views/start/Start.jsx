@@ -10,9 +10,9 @@ const Start = observer(class App extends React.Component {
 
         return (
             <div className="start">
-                <h1>PLANRY</h1>
-                <div className="subheader">Visit one of your previously seen boards or create a new one</div>
-                <ul>
+                <h1>Welcome to Planry!</h1>
+                <p className="subheader">Collaborate on small projects, without any hassle.</p>
+                <ul class="list-of-boards">
                     <li className="new"><Link to="/boards">+ Create new</Link></li>
                     {
                         data.reverse().map((visited) => {
