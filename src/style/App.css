@@ -391,6 +391,16 @@ input[type='checkbox']:checked {
 }
 
 @media only screen and (min-width: 800px) {
+  input[type='checkbox'] {
+      width:22px;
+      height:22px;
+  }
+  .checklist-widget .list-group-item .checkbox-label {
+    top: 2px;
+  }
+  .editable-label {
+    margin-left: 10px;
+  }
   .editable-header.h1 {
     margin-top: 80px;
   }
