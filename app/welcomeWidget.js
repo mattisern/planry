@@ -42,7 +42,16 @@ module.exports = {
             },
             {
                 "key": "dojco",
-                "text": "Start by changing this text and send this URL to someone you want to share the board with.",
+                "text": "Start by changing this text. Then send the URL of this board to someone you want to share it with :)",
+                "type": "unstyled",
+                "depth": 0,
+                "inlineStyleRanges": [],
+                "entityRanges": [],
+                "data": {}
+            },
+            {
+                "key": "dojco",
+                "text": "You can also ...",
                 "type": "unstyled",
                 "depth": 0,
                 "inlineStyleRanges": [],
@@ -60,7 +69,7 @@ module.exports = {
             },
             {
                 "key": "bnpaj",
-                "text": "Style your text with Markdown. Try making something bold by writing it in *stars*.",
+                "text": "Style your text with Markdown. Try making something bold by writing it in **double stars**.",
                 "type": "unordered-list-item",
                 "depth": 0,
                 "inlineStyleRanges": [],
