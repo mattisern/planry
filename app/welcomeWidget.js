@@ -69,7 +69,7 @@ module.exports = {
             },
             {
                 "key": "2i6tl",
-                "text": "And of course, you can change the name of your project, too! Just click the name and write whatever you want. Like 'dates for Game of Thrones night' or 'shopping list for the week' :)"
+                "text": "And of course, you can change the name of your project, too! Just click the name and write whatever you want :)"
                 "type": "unordered-list-item",
                 "depth": 0,
                 "inlineStyleRanges": [],
