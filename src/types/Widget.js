@@ -20,7 +20,7 @@ export default class Widget {
     }
 
     delete () {
-        if (window.confirm('Are you sure you want to delete this widget?')) {
+        if (window.confirm('Are you sure you want to delete this card?')) {
             this.socket.emit('deleteWidget', { widgetId: this.id });
         }
     }
@@ -29,7 +29,7 @@ export default class Widget {
         console.log("LOCK", data)
         this.disabled.push(data.field);
     }
-    
+
     unlock (data) {
         console.log("UNLOCK", data)
         this.disabled = this.disabled.filter((disabled) => {

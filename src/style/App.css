@@ -164,12 +164,12 @@ li.finished {
 .checklist-widget .list-group-item .checkbox-label {
   position: absolute;
   top: 0;
-  left: 20px;
+  left: 14px;
 }
 
 .checklist-widget .list-group-item .drag-handle {
   position: absolute;
-  top: 2px;
+  top: 1px;
   left: 0;
   display: inline-block;
   width: 20px;
@@ -399,7 +399,7 @@ input[type='checkbox']:checked {
     top: 2px;
   }
   .editable-label {
-    margin-left: 10px;
+    margin-left: 4px;
   }
   .editable-header.h1 {
     margin-top: 80px;

@@ -1,6 +1,6 @@
 module.exports = {
         "name": "This is Planry",
-        "text": "Welcome to Planry!\n\nPlanry is a small scale collaboration tool that is updated real time for you and your friends.\n\nYou can:\nAdd new widgets by pressing the placeholders, for instance \"+ Text\".\nYou can share this board by simple sharing the url\nAnd of course, you can change this text :)",
+        "text": "Welcome to Planry!\n\nPlanry is a tool that helps you and your friends collaborate.\n\nStart by changing this text and send this URL to someone you want to share the board with.\nAdd new cards by pressing the placeholders, for instance \"+ Text\".\nYou can share this board by simple sharing the url\nAnd of course, you can change this text :)",
         "richText": {
             "entityMap": {},
             "blocks": [
@@ -24,7 +24,7 @@ module.exports = {
             },
             {
                 "key": "84p21",
-                "text": "Planry is a small scale collaboration tool that is updated real time for you and your friends.",
+                "text": "Planry is a tool that helps you and your friends collaborate.",
                 "type": "unstyled",
                 "depth": 0,
                 "inlineStyleRanges": [],
@@ -42,7 +42,7 @@ module.exports = {
             },
             {
                 "key": "dojco",
-                "text": "You can:",
+                "text": "Start by changing this text and send this URL to someone you want to share the board with.",
                 "type": "unstyled",
                 "depth": 0,
                 "inlineStyleRanges": [],
@@ -51,7 +51,7 @@ module.exports = {
             },
             {
                 "key": "20rnm",
-                "text": "Add new widgets by pressing the placeholders, for instance \"+ Text\".",
+                "text": "Add new cards to your board.",
                 "type": "unordered-list-item",
                 "depth": 0,
                 "inlineStyleRanges": [],
@@ -60,7 +60,7 @@ module.exports = {
             },
             {
                 "key": "bnpaj",
-                "text": "You can share this board by simple sharing the url",
+                "text": "Style your text with Markdown. Try making something bold by writing it in *stars*.",
                 "type": "unordered-list-item",
                 "depth": 0,
                 "inlineStyleRanges": [],
@@ -69,7 +69,7 @@ module.exports = {
             },
             {
                 "key": "2i6tl",
-                "text": "And of course, you can change this text :)",
+                "text": "And of course, you can change the name of your project, too! Just click the name and write whatever you want. Like 'dates for Game of Thrones night' or 'shopping list for the week' :)"
                 "type": "unordered-list-item",
                 "depth": 0,
                 "inlineStyleRanges": [],
