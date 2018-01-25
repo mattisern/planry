@@ -41,7 +41,7 @@ module.exports = {
                 "data": {}
             },
             {
-                "key": "dojco",
+                "key": "4j3l1",
                 "text": "Start by changing this text. Then send the URL of this board to someone you want to share it with :)",
                 "type": "unstyled",
                 "depth": 0,
