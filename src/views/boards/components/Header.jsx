@@ -1,7 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
 
-import RememberBoard from "./RememberBoard";
 import CreateBoard from "./CreateBoard";
 
 const Header = observer(class Header extends React.Component {

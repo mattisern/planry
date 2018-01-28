@@ -5,6 +5,8 @@ import TextWidget from "../types/TextWidget";
 
 import client from "../client";
 import socket from "../socket";
+
+import visitedStore from "./VisitedStore";
     
 class BoardStore {
     constructor () {
@@ -81,6 +83,8 @@ class BoardStore {
     updateTitle (name) {
         this.socket.emit("titleUpdated", {board: this.id, title: name})
         this.name = name;
+
+        visitedStore.save({identifier: this.identifier, name})
     }
 
     lockTitle () {

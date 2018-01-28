@@ -20,22 +20,25 @@ export default class Widget {
     }
 
     delete () {
-        if (window.confirm('Are you sure you want to delete this widget?')) {
+        if (window.confirm('Are you sure you want to delete this card?')) {
             this.socket.emit('deleteWidget', { widgetId: this.id });
         }
     }
 
     lock (data) {
+        console.log("LOCK", data)
         this.disabled.push(data.field);
     }
-    
+
     unlock (data) {
+        console.log("UNLOCK", data)
         this.disabled = this.disabled.filter((disabled) => {
             return disabled !== data.field;
         })
     }
 
     isDisabled (field) {
+        console.log("FIELD", field, this.disabled.slice())
         return this.disabled.includes(field);
     }
 

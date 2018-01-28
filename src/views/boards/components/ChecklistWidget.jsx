@@ -1,19 +1,21 @@
 import React from 'react';
 
-import {reaction} from "mobx";
+import {reaction, observable} from "mobx";
 import {observer} from "mobx-react";
 
 import Editor, {createEditorStateWithText} from 'draft-js-plugins-editor';
 import {getDefaultKeyBinding} from 'draft-js';
+import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
 
 import WidgetDelete from "./WidgetDelete";
 import WidgetHeader from "./WidgetHeader";
 
-const Task = observer(class Task extends React.Component {
+const DragHandle = SortableHandle(() => <span className="drag-handle">::</span>)
+
+const Task = SortableElement(observer(class Task extends React.Component {
     constructor (props) {
         super(props);
 
-        console.log(props.task)
         this.state = { 
             editorState: createEditorStateWithText(props.task.description || "")
         };
@@ -46,6 +48,7 @@ const Task = observer(class Task extends React.Component {
         this.dispose = reaction(
             () => this.props.task.description,
             (text) => {
+                console.log("JAha?", this.props.widget.isDisabled("description"))
                 if (this.props.widget.isDisabled("description")) {
                     this.setState({
                         editorState: createEditorStateWithText(this.props.task.description || "")
@@ -64,6 +67,7 @@ const Task = observer(class Task extends React.Component {
 
         return (
             <li className="list-group-item d-flex justify-content-between align-items-center">
+                <DragHandle />
                 <label className="checkbox-label">
                     <input
                         type="checkbox"
@@ -94,29 +98,33 @@ const Task = observer(class Task extends React.Component {
             </li>
         )
     }
-})
+}))
 
-const Tasks = observer(class Tasks extends React.Component {
+const Tasks = SortableContainer(observer(class Tasks extends React.Component {
     render () {
         return (
-            <ul id="tasks" className="list-group widget-content">
+            <ul className="tasks list-group widget-content">
                 {
-                    this.props.widget.tasks.map((task) => {
-                        return <Task key={task.id} widget={this.props.widget} task={task} />
+                    this.props.widget.tasks.map((task, i) => {
+                        return <Task key={task.id} widget={this.props.widget} task={task} index={i} />
                     })
                 }
             </ul>
         )
     }
-})
+}))
 
 const ChecklistWidget = observer(class ChecklistWidget extends React.Component {
-    render() {
+    onSortEnd = ({oldIndex, newIndex, a}) => {
+        this.props.widget.updateOrdinal(oldIndex, newIndex);
+    }
+
+    render () {
         return (
             <div className="widget checklist-widget">
                 <WidgetDelete widget={this.props.widget} />
                 <WidgetHeader widget={this.props.widget} />
-                <Tasks widget={this.props.widget} />
+                <Tasks widget={this.props.widget} onSortEnd={this.onSortEnd} useDragHandle />
                 <div className="centered-content">
                     <a className="btn btn-secondary add-task" role="button" onClick={() => this.props.widget.addTask()}>
                         +<br/>

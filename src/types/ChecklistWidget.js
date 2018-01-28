@@ -1,6 +1,7 @@
-import {extendObservable} from "mobx";
+import {extendObservable, action} from "mobx";
 import Widget from "./Widget";
 import ChecklistItem from "./ChecklistItem";
+import {arrayMove} from 'react-sortable-hoc';
 
 export default class ChecklistWidget extends Widget {
     kind = "checklist";
@@ -14,7 +15,7 @@ export default class ChecklistWidget extends Widget {
 
         if (tasks) {
             this.tasks = tasks.map((task) => {
-                return new ChecklistItem(this.socket, this.id, task.id, task.description, task.completed);
+                return new ChecklistItem(this.socket, this.id, task.id, task.description, task.completed, task.ordinal);
             })
         }
 
@@ -35,7 +36,13 @@ export default class ChecklistWidget extends Widget {
             if (data.widget.id === this.id) {
                 this.tasks.push(new ChecklistItem(this.socket, this.id, data.task.id, data.task.description, data.task.com));
             }
-        })
+        });
+
+        this.socket.on('updateTasksOrdinal', (data) => {
+            if (data.widget.id === this.id) {
+                this.tasks = arrayMove(this.tasks, data.oldIndex, data.newIndex);
+            }
+        });
     }
 
     findTask (id) {
@@ -47,7 +54,6 @@ export default class ChecklistWidget extends Widget {
     lock (data) {
         if (data.taskId) {
             this.lockItem(data.taskId);
-            return;
         }
 
         Widget.prototype.lock.call(this, data);
@@ -56,7 +62,6 @@ export default class ChecklistWidget extends Widget {
     unlock (data) {
         if (data.taskId) {
             this.unlockItem(data.taskId);
-            return;
         }
 
         Widget.prototype.unlock.call(this, data);
@@ -80,5 +85,9 @@ export default class ChecklistWidget extends Widget {
         this.didAdd = true;
         this.socket.emit('addWidgetTask', {widgetId: this.id});
     }
-    
+
+    updateOrdinal = action((oldIndex, newIndex) => {
+        this.tasks = arrayMove(this.tasks, oldIndex, newIndex);
+        this.socket.emit('updateTasksOrdinal', {widgetId: this.id, oldIndex, newIndex});
+    })
 }

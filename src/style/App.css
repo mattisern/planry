@@ -22,6 +22,34 @@ h2 {
   font-size: 36px;
 }
 
+.start {
+  margin: 0 auto;
+  text-align: center
+}
+
+.start h1 {
+  margin-top: 96px;
+  font-size: 30px;
+}
+
+.start ul {
+  max-width: 360px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.start ul li.new {
+  background-color: #00aeef;
+}
+.start ul li.new a {
+  color: #fff;
+}
+.start ul li {
+  padding: 10px;
+  background-color: #fff;
+  margin-bottom: 1px;
+}
+
 .notify-edit .DraftEditor-root,
 input.notify-edit,
 textarea.notify-edit {
@@ -128,13 +156,25 @@ li.finished {
 .checklist-widget .list-group-item {
   border: 0;
   position: relative;
-  padding-left: 20px;
+  padding-left: 40px;
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 
 .checklist-widget .list-group-item .checkbox-label {
   position: absolute;
   top: 0;
+  left: 14px;
+}
+
+.checklist-widget .list-group-item .drag-handle {
+  position: absolute;
+  top: 1px;
   left: 0;
+  display: inline-block;
+  width: 20px;
+  line-height: 21px;
+  cursor: move;
 }
 
 .editable-label {
@@ -143,11 +183,12 @@ li.finished {
   background-color: transparent;
   transition: box-shadow .2s ease-in;
   outline: 0;
-  width: 270px;
+  width: 230px;
   text-overflow: ellipsis;
+  padding-top: 1px;
   margin-right: 20px;
-  padding: 0;
-  margin-bottom: 12px;
+  margin-bottom: 0px;
+  margin-left: 14px;
 }
 
 .add-task {
@@ -155,7 +196,7 @@ li.finished {
   font-size: 22px;
 }
 
-ul#tasks {
+ul.tasks {
   max-height: 455px;
   overflow: auto;
 }
@@ -168,6 +209,15 @@ ul#tasks {
   color: #d8d7d2;
   font-size: 14px;
   padding-bottom: 8px;
+  position: absolute;
+  top: 1px;
+  right: 0;
+  background: #f7f7f7;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
 }
 
 .delete-task:hover {
@@ -311,6 +361,23 @@ p.footer {
   border-top: 2px dashed #bfbfbf;
 }
 
+ul.list-of-boards {
+  padding-left: 0;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:26px;
+    height:26px;
+    background:white;
+    border-radius:25px;
+    border:2px solid #e5e5e5;
+}
+input[type='checkbox']:checked {
+    background: #00aeef;
+    border:2px solid #00aeef;
+}
+
 @media only screen and (min-width: 500px) {
   .widgets-container {
     width: 400px;
@@ -328,6 +395,16 @@ p.footer {
 }
 
 @media only screen and (min-width: 800px) {
+  input[type='checkbox'] {
+      width:22px;
+      height:22px;
+  }
+  .checklist-widget .list-group-item .checkbox-label {
+    top: 2px;
+  }
+  .editable-label {
+    margin-left: 4px;
+  }
   .editable-header.h1 {
     margin-top: 80px;
   }
