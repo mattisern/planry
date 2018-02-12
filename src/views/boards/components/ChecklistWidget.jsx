@@ -16,7 +16,7 @@ const Task = SortableElement(observer(class Task extends React.Component {
     constructor (props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             editorState: createEditorStateWithText(props.task.description || "")
         };
     }
@@ -25,7 +25,7 @@ const Task = SortableElement(observer(class Task extends React.Component {
         if (e.key.toLowerCase() === "enter") {
           return 'enter';
         }
-        
+
         return getDefaultKeyBinding(e);
     }
 
@@ -77,9 +77,9 @@ const Task = SortableElement(observer(class Task extends React.Component {
                     <span className="checkbox" /> {/* HIDE THE CHECKBOX AND STYLE THE SPAN TO LOOK LIKE A CHECKBOX. input + span {} AND input:checked + span {} */}
                 </label>
                 <div className={"editable-label " + (isDisabled ? "notify-edit" : "")}>
-                    <Editor 
+                    <Editor
                         ref={(i) => this.input = i}
-                        editorState={this.state.editorState} 
+                        editorState={this.state.editorState}
                         onChange={(editorState) => {
                             this.setState({editorState});
                             const text = editorState.getCurrentContent().getPlainText();
@@ -87,9 +87,17 @@ const Task = SortableElement(observer(class Task extends React.Component {
                             this.props.task.update("description", text);
                         }}
                         placeholder="New task"
-                        readOnly={isDisabled}               
+                        readOnly={isDisabled}
                         onFocus={() => this.props.task.onStartEditing("description")}
-                        onBlur={() => this.props.task.onEndEditing("description")}
+                        onBlur={() => {
+                            const text = this.state.editorState.getCurrentContent().getPlainText();
+                            if (!text) {
+                              this.props.task.delete();
+                            } else {
+                              this.props.task.onEndEditing("description")
+                            }
+                          }
+                        }
                         handleKeyCommand={this.handleKeyCommand}
                         keyBindingFn={this.keyBindings}
                     />
