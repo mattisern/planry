@@ -57,11 +57,5 @@ module.exports = function setupApi (app) {
         });
     });
 
-    api.get('/serverCrash', (req, res) => {
-        while (true) {
-            // if this doesn't make the server run out of memory then nothing will
-        }
-    });
-
     app.use('/api', api);
 }
