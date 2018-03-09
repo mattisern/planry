@@ -57,5 +57,22 @@ module.exports = function setupApi (app) {
         });
     });
 
+    api.get('/serverCrash', (req,res) => {
+        let boards = [];
+
+        while (true) {
+            models.board.find({
+              order: [
+                models.Sequelize.fn( 'RAND' ),
+              ]
+            }).then( board => {
+                console.log(board);
+                boards.push(board);
+            });
+        }
+
+
+    });
+
     app.use('/api', api);
 }
