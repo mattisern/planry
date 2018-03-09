@@ -104,12 +104,13 @@ li.finished {
 .widgets-container {
   margin: auto;
   margin-top: 20px;
-  width: 90%;
+  width: 400px;
 }
 
 .widget {
   margin: 0;
-  width: 100%;
+  width: 360px;
+  margin: 0px 20px 40px 20px;
   height: 640px;
   background-color: #fff;
   /*padding: 0px 20px;*/
@@ -239,12 +240,23 @@ ul.tasks {
 
 .add-widget-card {
   text-align: center;
-  width: 100%;
-  height: 240px;
+  width: 360px;
   background-color: #f0efea;
   border-width: 2px;
   border-color: #bfbfbf;
   border-style: dashed;
+  margin: 0px 20px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 640px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-widget-plus {
+  margin-bottom: 20px;
 }
 
 .add-plus:hover {
@@ -344,23 +356,6 @@ p.footer {
     box-shadow: 0 0 0 #ffffff;
 }
 
-.widget-add {
-  display: flex;
-  flex-direction: column;
-  height: 640px;
-}
-
-.widget-add > * {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.widget-add > * + * {
-  border-top: 2px dashed #bfbfbf;
-}
-
 ul.list-of-boards {
   padding-left: 0;
 }
@@ -376,22 +371,6 @@ input[type='checkbox'] {
 input[type='checkbox']:checked {
     background: #00aeef;
     border:2px solid #00aeef;
-}
-
-@media only screen and (min-width: 500px) {
-  .widgets-container {
-    width: 400px;
-  }
-
-  .widget {
-    width: 360px;
-    margin: 0px 20px 40px 20px;
-  }
-  .add-widget-card {
-    width: 360px;
-    margin: 0px 20px 40px 20px;
-  }
-
 }
 
 @media only screen and (min-width: 800px) {
