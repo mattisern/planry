@@ -276,26 +276,6 @@ ul.tasks {
   line-height: 36px;
 }
 
- .widget .add-widget-card .dropdown-toggle .card-type a:hover {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.dropdown-menu {
-  left: 30%;
-  top: 28%;
-  background-color: #fbfbf9;
-  padding: 40px;
-  border: 0;
-  box-shadow: 0px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.dropdown-menu a:hover {
-  color: #000;
-}
-
 .editable-header {
   border: none;
   font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
