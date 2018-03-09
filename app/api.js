@@ -43,15 +43,15 @@ module.exports = function setupApi (app) {
     // Find existing board
     api.get('/boards/:uuid', (req, res) => {
         models.board.findOne({
-            include: [{model: models.widget}], 
+            include: [{model: models.widget}],
             where: { identifier: req.params.uuid },
-            order: [[models.widget, 'id', 'asc']] 
+            order: [[models.widget, 'id', 'asc']]
         }).then( board => {
             // Found a board, return that one
             if (board) {
                 res.setHeader('Content-Type', 'application/json');
                 res.send(board);
-    
+
                 return true;
             }
         });
