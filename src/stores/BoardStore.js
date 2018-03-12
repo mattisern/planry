@@ -1,4 +1,4 @@
-import {extendObservable} from "mobx";
+import {extendObservable, when} from "mobx";
 
 import ChecklistWidget from "../types/ChecklistWidget";
 import TextWidget from "../types/TextWidget";
@@ -15,14 +15,29 @@ class BoardStore {
             identifier: "",
             isLoading: false,
             isError: false,
+            isRefresh: false,
             widgets: [],
             name: "",
             disabled: false
         });
     }
 
+    handleInactive () { 
+        this.socket.on("connect", () => {
+            this.get(this.identifier, true);
+        });
+
+        window.addEventListener("focus", (event) => { 
+            this.socket.connect();
+        }, false);
+    }
+
     setup () {
-        this.socket = socket(this.identifier)
+        this.socket = socket(this.identifier);
+
+        this.socket.once("connect", () => {
+            this.handleInactive();
+        });
 
         this.socket.on("titleUpdated", (data) => {
             this.name = data.name;
@@ -105,19 +120,25 @@ class BoardStore {
         });
     }
 
-    get (uuid) {
+    get (uuid, isRefresh = false) {
         if (!uuid) {
             return this.create();
         }
-
-        this.isLoading = true;
+        
+        if (isRefresh) {
+            this.isRefresh = isRefresh;
+        }
+        this.isLoading = this.isRefresh ? false : true;
         this.isError = false;
         
         client.get("/boards/" + uuid).then((res) => {
             this.isLoading = false;
+            if (isRefresh) { this.isRefresh = false; }
             return this.parseBackend(res)
         }).catch(() => {
+            this.isLoading = false;
             this.isError = true;
+            if (isRefresh) { this.isRefresh = false; }
         });
 
         return this;
@@ -147,15 +168,19 @@ class BoardStore {
     }
 
     parseBackend (res) {
+        const oldId = this.id;
         const data = res.data;
 
         this.name = data.name;
         this.id = data.id;
         this.identifier = data.identifier;
         
-        this.setup();
+        if (this.id !== oldId) {
+            this.setup();
+        }
 
         if (data.widgets) {
+            this.widgets = [];
             data.widgets.forEach((widget) => {
                 this.widgets.push(this.createWidget(widget));
             });

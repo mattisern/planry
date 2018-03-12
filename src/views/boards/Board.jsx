@@ -1,4 +1,5 @@
 import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import {observer} from "mobx-react";
 import {reaction, when} from "mobx";
 import {withRouter} from "react-router-dom";
@@ -60,6 +61,18 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
                 }
             )
         }
+
+        reaction(
+            () => this.board.isRefresh,
+            (isRefresh) => {
+                if (isRefresh && !toast.isActive(this.toastId)) {
+                    this.toastId = toast.info("Content refreshed", {
+                        position: toast.POSITION.BOTTOM_RIGHT, 
+                        autoClose: 2000
+                      });
+                }
+            }
+        )
     }
 
     render() {
@@ -75,6 +88,7 @@ const BoardContainer = observer(class BoardContainer extends React.Component {
         return (
             <Main>
                 {content}
+                <ToastContainer />
             </Main>
         );
     }

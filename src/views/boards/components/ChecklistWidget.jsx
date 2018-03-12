@@ -48,7 +48,6 @@ const Task = SortableElement(observer(class Task extends React.Component {
         this.dispose = reaction(
             () => this.props.task.description,
             (text) => {
-                console.log("JAha?", this.props.widget.isDisabled("description"))
                 if (this.props.widget.isDisabled("description")) {
                     this.setState({
                         editorState: createEditorStateWithText(this.props.task.description || "")
