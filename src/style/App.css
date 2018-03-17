@@ -160,6 +160,7 @@ li.finished {
   padding-left: 40px;
   margin-top: 6px;
   margin-bottom: 4px;
+  min-height: 20px;
 }
 
 .checklist-widget .list-group-item .checkbox-label {
