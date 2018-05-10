@@ -110,7 +110,7 @@ const Task = SortableElement(observer(class Task extends React.Component {
 const Tasks = SortableContainer(observer(class Tasks extends React.Component {
     render () {
         return (
-            <ul className="tasks list-group widget-content">
+            <ul className="tasks list-group">
                 {
                     this.props.widget.tasks.map((task, i) => {
                         return <Task key={task.id} widget={this.props.widget} task={task} index={i} />
@@ -122,20 +122,36 @@ const Tasks = SortableContainer(observer(class Tasks extends React.Component {
 }))
 
 const ChecklistWidget = observer(class ChecklistWidget extends React.Component {
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            isExpanded: false
+        };
+    }
+
     onSortEnd = ({oldIndex, newIndex, a}) => {
         this.props.widget.updateOrdinal(oldIndex, newIndex);
     }
 
+    toggleExpanded = () => {
+        this.setState({
+            isExpanded: !this.state.isExpanded
+        });
+    }
+
     render () {
         return (
-            <div className="widget checklist-widget">
+            <div className={"widget checklist-widget" + (this.state.isExpanded ? " expanded" : "")}>
                 <WidgetDelete widget={this.props.widget} />
-                <WidgetHeader widget={this.props.widget} />
-                <Tasks widget={this.props.widget} onSortEnd={this.onSortEnd} useDragHandle />
-                <div className="centered-content">
-                    <a className="btn btn-secondary add-task" role="button" onClick={() => this.props.widget.addTask()}>
-                        +<br/>
-                    </a>
+                <WidgetHeader widget={this.props.widget} onToggle={this.toggleExpanded} />
+                <div className="widget-content">
+                    <Tasks widget={this.props.widget} onSortEnd={this.onSortEnd} useDragHandle />
+                    <div className="centered-content">
+                        <a className="btn btn-secondary add-task" role="button" onClick={() => this.props.widget.addTask()}>
+                            +<br/>
+                        </a>
+                    </div>
                 </div>
             </div>
         );
