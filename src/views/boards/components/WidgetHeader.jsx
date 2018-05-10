@@ -16,6 +16,7 @@ const WidgetHeader = observer(class WidgetHeader extends React.Component {
                     onFocus={(e) => this.props.widget.onStartEditing("name")}
                     onBlur={(e) => this.props.widget.onEndEditing("name")}
                 />
+                <button className="widget-header-toggle" type="button" onClick={this.props.onToggle}>V</button>
             </div>
         );
     }

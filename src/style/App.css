@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f0efea;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
 }
 
 p, a {
@@ -9,7 +14,7 @@ p, a {
   line-height: 24px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
   color: #00aeef;
 }
@@ -18,8 +23,8 @@ h1 {
   font-size: 26px;
 }
 
-h2 {
-  font-size: 36px;
+h3 {
+  font-size: 18px;
 }
 
 .start {
@@ -96,30 +101,31 @@ li.finished {
   text-decoration: line-through;
 }
 
-.widget-add-button span {
-  font-family: 'Montserrat-Medium', 'Montserrat', sans-serif;
-  color: #00aeef
+.widget-add-button {
+  margin: 5px 5px;
 }
 
 .widgets-container {
   margin: auto;
   margin-top: 20px;
-  width: 90%;
+  width: 400px;
 }
 
 .widget {
-  margin: 0;
-  width: 100%;
-  height: 640px;
+  margin: 0 10px 10px 10px;
   background-color: #fff;
   /*padding: 0px 20px;*/
-  float: left;
 }
 
 .widget-content {
   height: 500px;
   overflow-y: auto;
   padding: 0 20px;
+  display: none;
+}
+
+.expanded .widget-content {
+  display: block;
 }
 
 .widget-header {
@@ -159,6 +165,7 @@ li.finished {
   padding-left: 40px;
   margin-top: 6px;
   margin-bottom: 4px;
+  min-height: 20px;
 }
 
 .checklist-widget .list-group-item .checkbox-label {
@@ -239,12 +246,23 @@ ul.tasks {
 
 .add-widget-card {
   text-align: center;
-  width: 100%;
-  height: 240px;
+  width: 360px;
   background-color: #f0efea;
   border-width: 2px;
   border-color: #bfbfbf;
   border-style: dashed;
+  margin: 0px 20px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 640px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-widget-plus {
+  margin-bottom: 20px;
 }
 
 .add-plus:hover {
@@ -257,31 +275,16 @@ ul.tasks {
   margin-top: 70px;
 }
 
+.add-widget-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
 .card-type a {
   font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
   font-size: 15px;
   color: #444;
   line-height: 36px;
-}
-
- .widget .add-widget-card .dropdown-toggle .card-type a:hover {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.dropdown-menu {
-  left: 30%;
-  top: 28%;
-  background-color: #fbfbf9;
-  padding: 40px;
-  border: 0;
-  box-shadow: 0px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.dropdown-menu a:hover {
-  color: #000;
 }
 
 .editable-header {
@@ -344,23 +347,6 @@ p.footer {
     box-shadow: 0 0 0 #ffffff;
 }
 
-.widget-add {
-  display: flex;
-  flex-direction: column;
-  height: 640px;
-}
-
-.widget-add > * {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.widget-add > * + * {
-  border-top: 2px dashed #bfbfbf;
-}
-
 ul.list-of-boards {
   padding-left: 0;
 }
@@ -378,23 +364,21 @@ input[type='checkbox']:checked {
     border:2px solid #00aeef;
 }
 
-@media only screen and (min-width: 500px) {
-  .widgets-container {
-    width: 400px;
-  }
-
+@media only screen and (min-width: 800px) {
   .widget {
     width: 360px;
     margin: 0px 20px 40px 20px;
-  }
-  .add-widget-card {
-    width: 360px;
-    margin: 0px 20px 40px 20px;
+    float: left;
   }
 
-}
+  .widget-content {
+    display: block;
+  }
 
-@media only screen and (min-width: 800px) {
+  .widget-header-toggle {
+    display: none;
+  }
+
   input[type='checkbox'] {
       width:22px;
       height:22px;

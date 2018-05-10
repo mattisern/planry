@@ -25,7 +25,8 @@ const TextWidget = observer(class TextWidget extends React.Component {
         }
 
         this.state = {
-            editorState
+            editorState,
+            isExpanded: false
         };
     }
 
@@ -46,30 +47,37 @@ const TextWidget = observer(class TextWidget extends React.Component {
         this.dispose();
     }
 
+    toggleExpanded = () => {
+        this.setState({
+            isExpanded: !this.state.isExpanded
+        });
+    }
+
     render() {
         const isDisabled = this.props.widget.isDisabled("text");
 
         return (
-            <div className={"widget text-widget "  + (isDisabled ? "notify-edit" : "")}>
+            <div className={"widget text-widget"  + (isDisabled ? " notify-edit" : "")  + (this.state.isExpanded ? " expanded" : "")}>
                 <WidgetDelete widget={this.props.widget} />
-                <WidgetHeader widget={this.props.widget} />
+                <WidgetHeader widget={this.props.widget} onToggle={this.toggleExpanded} />
+                <div class="widget-content">
+                    <Editor
+                        editorState={this.state.editorState}
+                        onChange={(editorState) => {
+                            this.setState({editorState});
+                            const text = editorState.getCurrentContent().getPlainText();
+                            const richText = convertToRaw(editorState.getCurrentContent());
 
-                <Editor
-                    editorState={this.state.editorState}
-                    onChange={(editorState) => {
-                        this.setState({editorState});
-                        const text = editorState.getCurrentContent().getPlainText();
-                        const richText = convertToRaw(editorState.getCurrentContent());
-
-                        this.props.widget.update("text", text);
-                        this.props.widget.update("richText", richText);
-                    }}
-                    plugins={[createMarkdownShortcutsPlugin()]}
-                    placeholder="Start writing here :)"
-                    readOnly={isDisabled}
-                    onFocus={(e) => this.props.widget.onStartEditing("text")}
-                    onBlur={(e) => this.props.widget.onEndEditing("text")}
-                />
+                            this.props.widget.update("text", text);
+                            this.props.widget.update("richText", richText);
+                        }}
+                        plugins={[createMarkdownShortcutsPlugin()]}
+                        placeholder="Start writing here :)"
+                        readOnly={isDisabled}
+                        onFocus={(e) => this.props.widget.onStartEditing("text")}
+                        onBlur={(e) => this.props.widget.onEndEditing("text")}
+                    />
+                </div>
             </div>
         );
     }
