@@ -1,5 +1,6 @@
 body {
   background-color: #f0efea;
+  font-family: 'Montserrat-Regular', 'Montserrat', sans-serif;
 }
 
 p, a {
@@ -107,12 +108,9 @@ li.finished {
 }
 
 .widget {
-  margin: 0;
-  width: 360px;
-  margin: 0px 20px 40px 20px;
+  margin: 0 10px 10px 10px;
   background-color: #fff;
   /*padding: 0px 20px;*/
-  float: left;
 }
 
 .widget-content {
@@ -363,6 +361,12 @@ input[type='checkbox']:checked {
 }
 
 @media only screen and (min-width: 800px) {
+  .widget {
+    width: 360px;
+    margin: 0px 20px 40px 20px;
+    float: left;
+  }
+
   .widget-content {
     display: block;
   }
